@@ -1,0 +1,69 @@
+.login-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Roundness to match RegisterPage */
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-form h2 {
+    text-align: center;
+    color: #003366; /* Color to match RegisterPage */
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.login-form input[type="email"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px; /* Slightly rounded edges for input fields */
+}
+
+.login-btn {
+    padding: 10px 15px;
+    background-color: #007bff; /* Button color to match RegisterPage */
+    color: white; /* Text color for readability */
+    border: none;
+    border-radius: 5px; /* Button roundness to match RegisterPage */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.login-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover for effect */
+    transform: translateY(-2px); /* Lift effect on hover */
+}
+
+.login-btn:active {
+    transform: translateY(1px); /* Pressed effect on active */
+}
+
+.error {
+    color: #721c24; /* Dark red color for text */
+    background-color: #f8d7da; /* Light red background */
+    border: 1px solid #f5c2c7; /* Slightly darker border for visibility */
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px; /* Rounded corners */
+    text-align: center; /* Center the text within the error box */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 20px 10px;
+    }
+}

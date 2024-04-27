@@ -12,40 +12,48 @@
     margin: 0 auto;
   }
   
-  .navbar .nav-links a,
-  .navbar .auth-links a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 15px;
-    font-weight: bold;
-    position: relative;
-    overflow: hidden;
-    transition: color 0.3s ease;
-  }
-  
-  .navbar .nav-links a::before,
-  .navbar .auth-links a::before {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 50%;
-    background-color: white;
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
-  }
-  
-  .navbar .nav-links a:hover::before,
-  .navbar .auth-links a:hover::before {
+.nav-links a,
+.auth-links a,
+.logout-btn { /* Apply the same styles to the logout button */
+  font-size: 1rem;
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  font-weight: bold;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s ease;
+  background-color: transparent; /* Ensure background is transparent by default */
+  border: none; /* Remove borders */
+  cursor: pointer; /* Add pointer to make it look clickable */
+}
+
+.nav-links a::before,
+.auth-links a::before,
+.logout-btn::before { /* Same hover effect for logout button */
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: white;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+  .nav-links a:hover::before,
+  .auth-links a:hover::before,
+  .logout-btn:hover::before { /* Extend the hover effect to logout button */
     width: 100%;
     left: 0;
     transform: translateX(0%);
   }
-  
-  .navbar .nav-links a:hover,
-  .navbar .auth-links a:hover {
-    color: #00bfff; /* Sky blue color for the text on hover */
+
+  .nav-links a:hover,
+  .auth-links a:hover,
+  .logout-btn:hover { /* Color change on hover for logout button */
+    color: #00bfff;
   }
   
   .auth-links .button {
@@ -59,6 +67,24 @@
     transform: scale(1.05); /* Slightly increase size on hover */
   }
   
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Adjust the gap between elements as needed */
+  }
+  
+  .user-info span {
+    color: white;
+    margin-right: 10px; /* Spacing between the email and the image */
+  }
+  
+  .profile-image {
+    width: 40px; /* Adjust size as needed */
+    height: 40px; /* Adjust size as needed */
+    border-radius: 50%; /* Make image circular */
+    object-fit: cover; /* If the image isn't square, this will cover the space without stretching the image */
+  }
+
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .navbar {

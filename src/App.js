@@ -1,11 +1,15 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./pages/Root.jsx";
 import HomePage from "./pages/Home.jsx";
 import CustomersPage from "./pages/Customers.jsx";
 import LoginPage from "./pages/Login.jsx";
 import RegisterPage from "./pages/Register.jsx";
 import ErrorPage from "./pages/Error.jsx";
+import ProfilePage from "./pages/Profile.jsx";
+import ProtectedRoute from "./components/ProtectedRoute"; // Import ProtectedRoute
 
 const router = createBrowserRouter([
   {
@@ -17,12 +21,24 @@ const router = createBrowserRouter([
       { path: "customers", element: <CustomersPage /> },
       { path: "login", element: <LoginPage /> },
       { path: "register", element: <RegisterPage /> },
+      {
+        path: "profile",
+        element: (
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        )
+      },
     ],
   },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />
+  return (
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  );
 }
 
 export default App;
