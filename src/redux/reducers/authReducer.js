@@ -3,6 +3,7 @@ import {
   LOGOUT,
   LOGIN_FAILURE,
   REGISTER_SUCCESS,
+  UPDATE_USER,
 } from "../actions/authActions";
 
 const initialState = {
@@ -18,6 +19,14 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: true,
+        user: {
+          ...state.user,
+          ...action.payload,
+        },
+      };
+    case UPDATE_USER:
+      return {
+        ...state,
         user: {
           ...state.user,
           ...action.payload,

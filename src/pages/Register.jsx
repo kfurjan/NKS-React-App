@@ -56,7 +56,6 @@ const RegisterPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Form submission logic will go here
     console.log(formData);
     dispatch(registerAndNavigate(formData));
   };

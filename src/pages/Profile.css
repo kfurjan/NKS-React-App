@@ -1,0 +1,112 @@
+.profile-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+  
+  .profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .profile-form h1 {
+    text-align: center;
+    color: #003366;
+  }
+  
+  .profile-form input[type="text"],
+  .profile-form input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-top: 1px;
+  }
+  
+  .validation-message {
+    margin-top: 1px;
+    color: #d9534f;
+    font-size: 0.85rem;
+    padding-left: 5px;
+  }
+  
+  .avatar-upload {
+    text-align: center;
+    position: relative;
+  }
+  
+  .avatar-upload {
+    margin-top: 20px;
+  }
+  
+  .upload-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .upload-button:hover,
+  .upload-button:focus {
+    background-color: #0056b3;
+  }
+  
+  .preview {
+    margin-top: 25px;
+  }
+  
+  .preview img {
+    margin-top: 20px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .update-btn {
+    margin-top: 20px;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    background: #007bff;
+    color: #fff;
+    outline: none;
+  }
+  
+  .update-btn.disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    color: #666;
+  }
+  
+  .update-btn.active {
+    background-image: linear-gradient(45deg, #006bbf, #009bff);
+  }
+  
+  .update-btn:not(.disabled):hover {
+    background-image: linear-gradient(45deg, #005cbf, #008bff);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 123, 255, 0.6);
+  }
+  
+  .update-btn:not(.disabled):active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 123, 255, 0.5);
+  }
+  
+  @media (max-width: 768px) {
+    .profile-container {
+      padding: 20px 10px;
+    }
+  }
+  

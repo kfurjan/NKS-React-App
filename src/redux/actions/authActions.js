@@ -4,6 +4,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT = "LOGOUT";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const UPDATE_USER = "UPDATE_USER";
 
 // Async action creator for login
 export const login = (loginData) => {
@@ -48,7 +49,6 @@ export const logout = () => ({
 
 export const register = (formData, callback) => {
   return (dispatch) => {
-
     axios
       .post("http://localhost:3000/auth/register", {
         name: formData.name,
@@ -86,3 +86,36 @@ export const registerSuccess = (userData) => ({
   type: REGISTER_SUCCESS,
   payload: userData,
 });
+
+export const updateUser = (formData, callback) => {
+  return (dispatch) => {
+    if (formData.file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(formData.file);
+      reader.onload = () => {
+        const updatePayload = {
+          ...formData,
+          email: formData.username,
+          image: reader.result,
+        };
+        dispatch({
+          type: UPDATE_USER,
+          payload: updatePayload,
+        });
+        callback();
+      };
+      reader.onerror = (error) => {
+        console.error("Error converting file to base64 string:", error);
+      };
+    } else {
+      dispatch({
+        type: UPDATE_USER,
+        payload: {
+          ...formData,
+          email: formData.username,
+        },
+      });
+      callback();
+    }
+  };
+};
