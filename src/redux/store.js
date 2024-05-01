@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
 
 const store = createStore(
     rootReducer,
-    applyMiddleware(thunk) // Use the named import here
+    applyMiddleware(thunk)
   );
 
 export default store;

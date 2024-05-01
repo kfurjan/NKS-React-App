@@ -115,7 +115,7 @@ export const updateUser = (formData, callback) => {
           email: formData.username,
         },
       });
-      callback();
+      callback(); 
     }
   };
 };
