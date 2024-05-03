@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./CustomersTable.css";
 
-const CustomersTable = () => {
+const CustomersTable = ({ isAuthenticated }) => {
+  // Component state
   const [customers, setCustomers] = useState([]);
   const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,9 +12,10 @@ const CustomersTable = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [sortField, setSortField] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
-  const [searchQuery, setSearchQuery] = useState(""); // New state for search query
-  const [filteredCustomers, setFilteredCustomers] = useState([]); // New state for filtered customers
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredCustomers, setFilteredCustomers] = useState([]);
 
+  // Fetch data effect
   useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
@@ -45,7 +47,7 @@ const CustomersTable = () => {
     fetchData();
   }, [currentPage, pageSize, sortField, sortOrder]);
 
-  // Update filteredCustomers when customers or searchQuery changes
+  // Update filtered customers effect
   useEffect(() => {
     const filtered = customers.filter(customer =>
       (customer.name && customer.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
@@ -57,6 +59,7 @@ const CustomersTable = () => {
     setFilteredCustomers(filtered);
   }, [customers, searchQuery, cities]);
 
+  // Event handlers
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -70,16 +73,24 @@ const CustomersTable = () => {
     setSearchQuery(query);
   };
 
+  const handleItemClick = (customer) => {
+    if (isAuthenticated) {
+      // Handle item click functionality here (e.g., open dialog)
+      console.log("Clicked on customer:", customer);
+    }
+  };
+
   if (loading) return <p>Loading customers...</p>;
 
   return (
-    <div>
+    <div className="table-container">
       <h1>Customers</h1>
       <input
         type="text"
+        className="search-bar"
         placeholder="Search..."
         value={searchQuery}
-        onChange={handleSearch} // Update searchQuery on input change
+        onChange={handleSearch}
       />
       <table>
         <thead>
@@ -94,18 +105,18 @@ const CustomersTable = () => {
         </thead>
         <tbody>
           {filteredCustomers.map(customer => (
-            <tr key={customer.id}>
+            <tr key={customer.id} onClick={() => handleItemClick(customer)} className={isAuthenticated ? "clickable" : ""}>
               <td>{customer.id}</td>
               <td>{customer.name}</td>
               <td>{customer.surname}</td>
-              <td>{customer.email}</td>
+              <td style={{ color: isAuthenticated ? 'blue' : 'inherit' }}>{customer.email}</td>
               <td>{customer.telephone}</td>
               <td>{cities[customer.cityId]}</td>
             </tr>
           ))}
         </tbody>
       </table>
-      <div>
+      <div className="pagination">
         <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>Prev</button>
         {[...Array(Math.min(totalPages, 10)).keys()].map((index) => {
           const startPage = Math.max(1, currentPage - 5);
@@ -117,11 +128,11 @@ const CustomersTable = () => {
           );
         })}
         <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>Next</button>
-        <div>
-          <button className={pageSize === 10 ? "selected-page-size" : ""} onClick={() => handlePageSizeChange(10)}>10</button>
-          <button className={pageSize === 20 ? "selected-page-size" : ""} onClick={() => handlePageSizeChange(20)}>20</button>
-          <button className={pageSize === 50 ? "selected-page-size" : ""} onClick={() => handlePageSizeChange(50)}>50</button>
-        </div>
+      </div>
+      <div className="page-size">
+        <button className={pageSize === 10 ? "selected-page-size" : ""} onClick={() => handlePageSizeChange(10)}>10</button>
+        <button className={pageSize === 20 ? "selected-page-size" : ""} onClick={() => handlePageSizeChange(20)}>20</button>
+        <button className={pageSize === 50 ? "selected-page-size" : ""} onClick={() => handlePageSizeChange(50)}>50</button>
       </div>
     </div>
   );
