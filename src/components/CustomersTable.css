@@ -76,3 +76,29 @@
   .page-size button:hover {
     background-color: #ddd;
   }
+
+  .table-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+  }
+  
+  table {
+    width: 90%; /* Adjust width as necessary */
+    max-width: 1000px; /* Set a max-width for larger screens */
+  }
+  
+  @media (max-width: 600px) {
+    table {
+      width: 100%;
+    }
+  }
+  
+  .current-page, .selected-page-size {
+    font-weight: bold;
+  }
+  
+  .disabled {
+    opacity: 0.5;
+  }
+  

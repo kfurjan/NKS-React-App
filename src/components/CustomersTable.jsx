@@ -11,6 +11,8 @@ const CustomersTable = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [sortField, setSortField] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
+  const [searchQuery, setSearchQuery] = useState(""); // New state for search query
+  const [filteredCustomers, setFilteredCustomers] = useState([]); // New state for filtered customers
 
   useEffect(() => {
     setLoading(true);
@@ -43,6 +45,18 @@ const CustomersTable = () => {
     fetchData();
   }, [currentPage, pageSize, sortField, sortOrder]);
 
+  // Update filteredCustomers when customers or searchQuery changes
+  useEffect(() => {
+    const filtered = customers.filter(customer =>
+      (customer.name && customer.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (customer.surname && customer.surname.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (customer.email && customer.email.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (customer.telephone && customer.telephone.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (cities[customer.cityId] && cities[customer.cityId].toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+    setFilteredCustomers(filtered);
+  }, [customers, searchQuery, cities]);
+
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -51,11 +65,22 @@ const CustomersTable = () => {
     setPageSize(size);
   };
 
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+  };
+
   if (loading) return <p>Loading customers...</p>;
 
   return (
     <div>
       <h1>Customers</h1>
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchQuery}
+        onChange={handleSearch} // Update searchQuery on input change
+      />
       <table>
         <thead>
           <tr>
@@ -68,7 +93,7 @@ const CustomersTable = () => {
           </tr>
         </thead>
         <tbody>
-          {customers.map(customer => (
+          {filteredCustomers.map(customer => (
             <tr key={customer.id}>
               <td>{customer.id}</td>
               <td>{customer.name}</td>
