@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Modal.css";
 
 const Modal = ({ isOpen, onClose, data }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+  const navigate = useNavigate(); 
 
   if (!isOpen) return null;
 
@@ -20,6 +22,10 @@ const Modal = ({ isOpen, onClose, data }) => {
 
   const handlePageClick = (page) => {
     setCurrentPage(page);
+  };
+
+  const handleRowClick = (id) => {
+    navigate(`/items/${id}`);
   };
 
   const pagination = Array.from({ length: maxPages }, (_, i) => i + 1).map(page => (
@@ -61,7 +67,8 @@ const Modal = ({ isOpen, onClose, data }) => {
           width: "80%",
           maxHeight: "90%",
           overflowY: "auto",
-          boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+          boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+          borderRadius: '5px'
         }}
       >
         <h1>{customerName} - Account Details</h1>
@@ -78,7 +85,7 @@ const Modal = ({ isOpen, onClose, data }) => {
           </thead>
           <tbody>
             {itemsToShow.map((detail, index) => (
-              <tr key={index} className="table-row">
+              <tr key={index} className="table-row" onClick={() => handleRowClick(detail.id)}>
                 <td style={{ border: "1px solid #ddd", padding: "8px" }}>{detail.id}</td>
                 <td style={{ border: "1px solid #ddd", padding: "8px" }}>{detail.billNumber}</td>
                 <td style={{ border: "1px solid #ddd", padding: "8px" }}>{detail.date}</td>

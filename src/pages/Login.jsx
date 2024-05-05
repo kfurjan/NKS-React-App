@@ -29,7 +29,7 @@ const LoginPage = () => {
 
   React.useEffect(() => {
     if (isAuthenticated) {
-      navigate('/'); // Navigate to the home page
+      navigate('/customers');
     }
   }, [isAuthenticated, navigate]);
 

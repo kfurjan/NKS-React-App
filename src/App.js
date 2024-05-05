@@ -10,6 +10,7 @@ import RegisterPage from "./pages/Register.jsx";
 import ErrorPage from "./pages/Error.jsx";
 import ProfilePage from "./pages/Profile.jsx";
 import ProtectedRoute from "./components/ProtectedRoute"; // Import ProtectedRoute
+import ItemsPage from "./pages/Items.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,14 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: "customers", element: <CustomersPage /> },
+      {
+        path: "items/:id",
+        element: (
+          <ProtectedRoute>
+            <ItemsPage />
+          </ProtectedRoute>
+        ),
+      },
       { path: "login", element: <LoginPage /> },
       { path: "register", element: <RegisterPage /> },
       {
@@ -27,7 +36,7 @@ const router = createBrowserRouter([
           <ProtectedRoute>
             <ProfilePage />
           </ProtectedRoute>
-        )
+        ),
       },
     ],
   },

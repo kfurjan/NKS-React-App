@@ -20,10 +20,8 @@ const CustomersTable = ({ isAuthenticated }) => {
 
   // Fetch data effect
   useEffect(() => {
-    console.log(`Fetching data with Page: ${currentPage}, Size: ${pageSize}, Sort: ${sortField}, Order: ${sortOrder}`);
     setLoading(true);
     const fetchData = async () => {
-      console.log(`Fetching data with Page: ${currentPage}, Size: ${pageSize}, Sort: ${sortField}, Order: ${sortOrder}`);
       const queryParams = new URLSearchParams({
         _page: currentPage,
         _limit: pageSize,

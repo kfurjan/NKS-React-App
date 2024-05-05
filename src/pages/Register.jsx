@@ -23,7 +23,7 @@ const RegisterPage = () => {
 
   const registerAndNavigate = (formData) => {
     return (dispatch) => {
-      dispatch(register(formData, () => navigate("/")));
+      dispatch(register(formData, () => navigate("/customers")));
     };
   };
 
