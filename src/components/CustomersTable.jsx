@@ -103,8 +103,6 @@ const CustomersTable = ({ isAuthenticated }) => {
     event.stopPropagation();  // Stop the event from propagating further
     if (!isAuthenticated) return;
   
-    //setLoading(true);
-  
     try {
       const token = localStorage.getItem('token');
       const config = {
@@ -115,6 +113,14 @@ const CustomersTable = ({ isAuthenticated }) => {
       const bills = billsResponse.data;
   
       const billsWithCardDetails = await Promise.all(bills.map(async (bill) => {
+        if (!bill.creditCardId) {
+          return {
+            ...bill,
+            creditCardType: "No credit card",
+            cardNumber: "N/A",
+            expiration: "N/A"
+          };
+        }
         const creditCardResponse = await axios.get(`http://localhost:3000/CreditCard/${bill.creditCardId}`, config);
         const creditCard = creditCardResponse.data;
   
@@ -127,14 +133,11 @@ const CustomersTable = ({ isAuthenticated }) => {
       }));
   
       openAccountDetailsDialog(billsWithCardDetails, `${customer.name} ${customer.surname}`);
-      //setLoading(false);
     } catch (error) {
       console.error("Failed to fetch account details:", error);
-      //setLoading(false);
     }
   };
   
-
   const openAccountDetailsDialog = (accountDetails, customerName) => {
     setDialogData({ accountDetails, customerName }); 
     setShowDialog(true);
