@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Container, Row, Col, Table, Button } from 'react-bootstrap';
+import { Container, Row, Col, Table, Button, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Items.css';
 
@@ -11,8 +11,10 @@ const ItemsPage = () => {
   const [items, setItems] = useState([]);
   const [products, setProducts] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);  // Max items per page
+  const [itemsPerPage] = useState(5);
   const [showAddItem, setShowAddItem] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -46,6 +48,40 @@ const ItemsPage = () => {
     fetchData();
   }, [id]);
 
+  const handleDeleteItem = async (itemId) => {
+    const item = items.find(item => item.id === itemId);
+    if (!item) {
+        console.error('Item not found');
+        return;
+    }
+
+    const token = localStorage.getItem('token');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
+
+    try {
+        await axios.delete(`http://localhost:3000/Item/${itemId}`, config);
+
+        const updatedItems = items.filter(item => item.id !== itemId);
+        setItems(updatedItems);
+
+        setNotificationMessage(`Item '${products[item.productId]?.name}' deleted successfully`);
+        setShowNotification(true);
+        setTimeout(() => {
+            setShowNotification(false);
+        }, 3000);
+    } catch (error) {
+        console.error("Failed to delete item:", error);
+        setNotificationMessage(`Failed to delete '${item.name}'`);
+        setShowNotification(true);
+        setTimeout(() => {
+            setShowNotification(false);
+        }, 3000);
+    }
+};
+
+
   const currentItems = items.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   const totalPages = Math.ceil(items.length / itemsPerPage);
 
@@ -68,6 +104,9 @@ const ItemsPage = () => {
           </div>
         </Col>
       </Row>
+      {showNotification && <Alert className={`notification-alert ${showNotification ? 'show' : ''}`}>
+        {notificationMessage}
+      </Alert>}
       <Row>
         <Col md={12}>
           <Table striped bordered hover>
@@ -94,7 +133,7 @@ const ItemsPage = () => {
                   <td>${products[item.productId]?.price?.toFixed(2)}</td>
                   <td>${item.totalPrice.toFixed(2)}</td>
                   <td>
-                    <Button variant="danger" onClick={() => console.log('Delete item', item.id)}>Delete</Button>
+                    <Button variant="danger" onClick={() => handleDeleteItem(item.id)}>Delete</Button>
                   </td>
                 </tr>
               ))}
@@ -118,3 +157,4 @@ const ItemsPage = () => {
 };
 
 export default ItemsPage;
+

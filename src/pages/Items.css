@@ -16,3 +16,24 @@
     font-weight: normal;
     color: black; 
 }
+
+.notification-alert {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1050;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  background-color: #28a745; /* Green for success */
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.notification-alert.show {
+  opacity: 1;
+  transform: translateX(0);
+}
