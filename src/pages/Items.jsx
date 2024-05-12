@@ -24,6 +24,7 @@ const ItemsPage = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [selectedSubCategoryId, setSelectedSubCategoryId] = useState("");
   const [selectedProductId, setSelectedProductId] = useState("");
+  const [selectedQuantity, setSelectedQuantity] = useState(1); // State for quantity
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
   const [showAddItem, setShowAddItem] = useState(false);
@@ -103,7 +104,8 @@ const ItemsPage = () => {
   useEffect(() => {
     if (selectedSubCategoryId) {
       const filteredProducts = Object.values(products).filter(
-        (product) => product.subCategoryId.toString() === selectedSubCategoryId.toString() 
+        (product) =>
+          product.subCategoryId.toString() === selectedSubCategoryId.toString()
       );
       if (filteredProducts.length > 0) {
         setSelectedProductId(filteredProducts[0].id.toString());
@@ -124,6 +126,10 @@ const ItemsPage = () => {
   const handleProductChange = (e) => {
     setSelectedProductId(e.target.value);
     console.log(e.target.value);
+  };
+
+  const handleQuantityChange = (e) => {
+    setSelectedQuantity(e.target.value);
   };
 
   const currentItems = items.slice(
@@ -243,13 +249,31 @@ const ItemsPage = () => {
                     >
                       {Object.values(products)
                         .filter(
-                          (prod) => prod.subCategoryId.toString() === selectedSubCategoryId.toString()
+                          (prod) =>
+                            prod.subCategoryId.toString() ===
+                            selectedSubCategoryId.toString()
                         )
                         .map((product) => (
                           <option key={product.id} value={product.id}>
                             {product.name}
                           </option>
                         ))}
+                    </Form.Control>
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group controlId="quantitySelect">
+                    <Form.Label>Quantity</Form.Label>
+                    <Form.Control
+                    as="select"
+                    value={selectedQuantity}
+                    onChange={handleQuantityChange}
+                    >
+                      {[...Array(10).keys()].map((x) => (
+                        <option key={x + 1} value={x + 1}>
+                          {x + 1}
+                        </option>
+                      ))}
                     </Form.Control>
                   </Form.Group>
                 </Col>
