@@ -206,12 +206,17 @@ const ItemsPage = () => {
       </Row>
       {showAddItem && (
         <Row>
-          <Col>
-            <Form>
+          <Col md={12}>
+            <Form
+              className={`p-3 form-animation ${showAddItem ? 'form-visible' : 'form-hidden'}`}
+              style={{ backgroundColor: "#f8f9fa", borderRadius: "5px" }}
+            >
               <Row>
-                <Col>
+                <Col md={6}>
                   <Form.Group controlId="categorySelect">
-                    <Form.Label>Category</Form.Label>
+                    <Form.Label>
+                      <strong>Category</strong>
+                    </Form.Label>
                     <Form.Control
                       as="select"
                       value={selectedCategoryId}
@@ -225,9 +230,11 @@ const ItemsPage = () => {
                     </Form.Control>
                   </Form.Group>
                 </Col>
-                <Col>
+                <Col md={6}>
                   <Form.Group controlId="subcategorySelect">
-                    <Form.Label>Subcategory</Form.Label>
+                    <Form.Label>
+                      <strong>Subcategory</strong>
+                    </Form.Label>
                     <Form.Control
                       as="select"
                       value={selectedSubCategoryId}
@@ -241,9 +248,13 @@ const ItemsPage = () => {
                     </Form.Control>
                   </Form.Group>
                 </Col>
-                <Col>
+              </Row>
+              <Row>
+                <Col md={6}>
                   <Form.Group controlId="productSelect">
-                    <Form.Label>Product</Form.Label>
+                    <Form.Label>
+                      <strong>Product</strong>
+                    </Form.Label>
                     <Form.Control
                       as="select"
                       value={selectedProductId}
@@ -263,9 +274,11 @@ const ItemsPage = () => {
                     </Form.Control>
                   </Form.Group>
                 </Col>
-                <Col>
+                <Col md={6}>
                   <Form.Group controlId="quantitySelect">
-                    <Form.Label>Quantity</Form.Label>
+                    <Form.Label>
+                      <strong>Quantity</strong>
+                    </Form.Label>
                     <Form.Control
                       as="select"
                       value={selectedQuantity}
@@ -280,12 +293,27 @@ const ItemsPage = () => {
                   </Form.Group>
                 </Col>
               </Row>
-              <Row>
-                <Col>
-                  <p><strong>Id:</strong> {selectedProductDetails.id}</p>
-                  <p><strong>Name:</strong> {selectedProductDetails.name}</p>
-                  <p><strong>Color:</strong> {selectedProductDetails.color}</p>
-                  <p><strong>ProductNumber:</strong> {selectedProductDetails.productNumber}</p>
+              <Row className="d-flex justify-content-between text-center">
+                <Col xs={12} sm={6} md={3} className="text-start mb-2 mb-md-0">
+                  <p>
+                    <strong>Id:</strong> {selectedProductDetails.id}
+                  </p>
+                </Col>
+                <Col xs={12} sm={6} md={3} className="text-center mb-2 mb-md-0">
+                  <p>
+                    <strong>Name:</strong> {selectedProductDetails.name}
+                  </p>
+                </Col>
+                <Col xs={12} sm={6} md={3} className="text-center mb-2 mb-md-0">
+                  <p>
+                    <strong>Color:</strong> {selectedProductDetails.color}
+                  </p>
+                </Col>
+                <Col xs={12} sm={6} md={3} className="text-end">
+                  <p>
+                    <strong>ProductNumber:</strong>{" "}
+                    {selectedProductDetails.productNumber}
+                  </p>
                 </Col>
               </Row>
             </Form>

@@ -37,3 +37,16 @@
   opacity: 1;
   transform: translateX(0);
 }
+
+.form-container {
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  max-height: 0;
+  opacity: 0;
+}
+
+.form-visible {
+  max-height: 500px; 
+  opacity: 1;
+  margin-bottom: 20px;
+}
