@@ -24,7 +24,7 @@ const ItemsPage = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [selectedSubCategoryId, setSelectedSubCategoryId] = useState("");
   const [selectedProductId, setSelectedProductId] = useState("");
-  const [selectedQuantity, setSelectedQuantity] = useState(1); // State for quantity
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
   const [showAddItem, setShowAddItem] = useState(false);
@@ -167,6 +167,8 @@ const ItemsPage = () => {
     }
   };
 
+  const selectedProductDetails = products[selectedProductId] || {};
+
   return (
     <Container>
       <Row
@@ -265,9 +267,9 @@ const ItemsPage = () => {
                   <Form.Group controlId="quantitySelect">
                     <Form.Label>Quantity</Form.Label>
                     <Form.Control
-                    as="select"
-                    value={selectedQuantity}
-                    onChange={handleQuantityChange}
+                      as="select"
+                      value={selectedQuantity}
+                      onChange={handleQuantityChange}
                     >
                       {[...Array(10).keys()].map((x) => (
                         <option key={x + 1} value={x + 1}>
@@ -276,6 +278,14 @@ const ItemsPage = () => {
                       ))}
                     </Form.Control>
                   </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <p><strong>Id:</strong> {selectedProductDetails.id}</p>
+                  <p><strong>Name:</strong> {selectedProductDetails.name}</p>
+                  <p><strong>Color:</strong> {selectedProductDetails.color}</p>
+                  <p><strong>ProductNumber:</strong> {selectedProductDetails.productNumber}</p>
                 </Col>
               </Row>
             </Form>
