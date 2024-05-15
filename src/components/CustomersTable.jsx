@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Table, Form, Button, Container } from "react-bootstrap";
 import "./CustomersTable.css";
 import Modal from "./Modal";
 
@@ -90,13 +91,6 @@ const CustomersTable = ({ isAuthenticated }) => {
     setSearchQuery(query);
   };
 
-  // const handleItemClick = (customer) => {
-  //   if (isAuthenticated) {
-  //     // Handle item click functionality here (e.g., open dialog)
-  //     console.log("Clicked on customer:", customer);
-  //   }
-  // };
-
   const handleItemClick = async (event, customer) => {
     event.stopPropagation();  // Stop the event from propagating further
     if (!isAuthenticated) return;
@@ -144,21 +138,21 @@ const CustomersTable = ({ isAuthenticated }) => {
   if (loading) return <p>Loading customers...</p>;
 
   return (
-    <div className="table-container">
+    <Container className="table-container">
       <Modal
         isOpen={showDialog}
         onClose={() => setShowDialog(false)}
         data={dialogData}
       />
-      <h1>Customers</h1>
-      <input
+      <h1 className="table-title">Customers</h1>
+      <Form.Control
         type="text"
         className="search-bar"
         placeholder="Search..."
         value={searchQuery}
         onChange={handleSearch}
       />
-      <table>
+      <Table striped bordered hover className="customers-table">
         <thead>
           <tr>
             <th
@@ -229,55 +223,61 @@ const CustomersTable = ({ isAuthenticated }) => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
       <div className="pagination">
-        <button
+        <Button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
+          variant="outline-primary"
         >
           Prev
-        </button>
+        </Button>
         {[...Array(Math.min(totalPages, 10)).keys()].map((index) => {
           const startPage = Math.max(1, currentPage - 5);
           const pageNumber = startPage + index;
           return (
-            <button
+            <Button
               key={pageNumber}
               onClick={() => handlePageChange(pageNumber)}
               className={currentPage === pageNumber ? "current-page" : ""}
+              variant={currentPage === pageNumber ? "primary" : "outline-primary"}
             >
               {pageNumber}
-            </button>
+            </Button>
           );
         })}
-        <button
+        <Button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
+          variant="outline-primary"
         >
           Next
-        </button>
+        </Button>
       </div>
       <div className="page-size">
-        <button
+        <Button
           className={pageSize === 10 ? "selected-page-size" : ""}
           onClick={() => handlePageSizeChange(10)}
+          variant="outline-primary"
         >
           10
-        </button>
-        <button
+        </Button>
+        <Button
           className={pageSize === 20 ? "selected-page-size" : ""}
           onClick={() => handlePageSizeChange(20)}
+          variant="outline-primary"
         >
           20
-        </button>
-        <button
+        </Button>
+        <Button
           className={pageSize === 50 ? "selected-page-size" : ""}
           onClick={() => handlePageSizeChange(50)}
+          variant="outline-primary"
         >
           50
-        </button>
+        </Button>
       </div>
-    </div>
+    </Container>
   );
 };
 

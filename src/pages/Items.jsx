@@ -129,7 +129,45 @@ const ItemsPage = () => {
   };
 
   const handleQuantityChange = (e) => {
-    setSelectedQuantity(e.target.value);
+    setSelectedQuantity(parseInt(e.target.value));
+  };
+
+  const handleAddItem = async () => {
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    const newItem = {
+      billId: id,
+      productId: selectedProductId,
+      quantity: selectedQuantity,
+      totalPrice:
+        products[selectedProductId].price * parseInt(selectedQuantity, 10),
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/Item",
+        newItem,
+        config
+      );
+      setItems((prevItems) => [...prevItems, response.data]);
+      setNotificationMessage(
+        `Item '${products[selectedProductId]?.name}' added successfully`
+      );
+      setShowNotification(true);
+      setTimeout(() => {
+        setShowNotification(false);
+      }, 3000);
+    } catch (error) {
+      console.error("Failed to add item:", error);
+      setNotificationMessage(`Failed to add item`);
+      setShowNotification(true);
+      setTimeout(() => {
+        setShowNotification(false);
+      }, 3000);
+    }
   };
 
   const currentItems = items.slice(
@@ -208,7 +246,9 @@ const ItemsPage = () => {
         <Row>
           <Col md={12}>
             <Form
-              className={`p-3 form-animation ${showAddItem ? 'form-visible' : 'form-hidden'}`}
+              className={`p-3 form-animation ${
+                showAddItem ? "form-visible" : "form-hidden"
+              }`}
               style={{ backgroundColor: "#f8f9fa", borderRadius: "5px" }}
             >
               <Row>
@@ -316,6 +356,9 @@ const ItemsPage = () => {
                   </p>
                 </Col>
               </Row>
+              <Button variant="success" onClick={handleAddItem}>
+                Add Item
+              </Button>
             </Form>
           </Col>
         </Row>

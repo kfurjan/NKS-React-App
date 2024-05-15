@@ -1,32 +1,47 @@
 /* Table styles */
 .table-container {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 1200px;
+  margin: 20px auto;
   display: flex; /* Use flexbox for alignment */
   flex-direction: column; /* Stack children vertically */
   align-items: center; /* Center items horizontally */
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
-table {
+.table-title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.customers-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
 }
 
-th, td {
+.customers-table th, .customers-table td {
   border: 1px solid #ddd;
   padding: 12px;
   text-align: left;
 }
 
-th {
-  background-color: #f2f2f2;
+.customers-table th {
+  background-color: #f8f9fa;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-th:hover {
-  background-color: #e0e0e0;
+.customers-table th:hover {
+  background-color: #e9ecef;
+}
+
+.customers-table tbody tr:hover {
+  background-color: #f1f1f1;
 }
 
 .pagination, .page-size {
@@ -35,14 +50,19 @@ th:hover {
   margin-bottom: 20px;
 }
 
-.pagination button, .page-size button, .search-bar {
+.pagination button, .page-size button {
   padding: 10px 16px;
   margin: 0 8px;
-  border: none;
-  background-color: transparent;
+  border: 1px solid #007bff;
+  background-color: #fff;
+  color: #007bff;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
   border-radius: 4px;
+}
+
+.pagination button:hover, .page-size button:hover {
+  background-color: #e7f1ff;
 }
 
 .pagination button.current-page, .page-size button.selected-page-size {
@@ -50,31 +70,15 @@ th:hover {
   color: #fff;
 }
 
-.pagination button:hover, .page-size button:hover, .search-bar:hover {
-  background-color: #f5f5f5;
-}
-
 .pagination button:disabled, .page-size button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-/* Responsive design */
-@media (max-width: 600px) {
-  table {
-    width: 100%;
-  }
 }
 
 .current-page, .selected-page-size {
   font-weight: bold;
 }
 
-.disabled {
-  opacity: 0.5;
-}
-
-/* Custom styling */
 .clickable {
   cursor: pointer;
 }
@@ -90,4 +94,20 @@ th:hover {
   border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
+  background-color: white;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .table-container {
+    padding: 10px;
+  }
+
+  .customers-table th, .customers-table td {
+    padding: 8px;
+  }
+
+  .pagination button, .page-size button, .search-bar {
+    padding: 8px 12px;
+  }
 }
