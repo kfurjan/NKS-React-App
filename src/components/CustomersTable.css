@@ -1,10 +1,9 @@
-/* Table styles */
 .table-container {
   max-width: 1200px;
   margin: 20px auto;
-  display: flex; /* Use flexbox for alignment */
-  flex-direction: column; /* Stack children vertically */
-  align-items: center; /* Center items horizontally */
+  display: flex; 
+  flex-direction: column;
+  align-items: center; 
   padding: 20px;
   background: #fff;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
@@ -97,7 +96,6 @@
   background-color: white;
 }
 
-/* Responsive design */
 @media (max-width: 600px) {
   .table-container {
     padding: 10px;

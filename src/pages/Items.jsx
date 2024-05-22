@@ -83,7 +83,7 @@ const ItemsPage = () => {
       if (filteredProducts.length > 0) {
         setSelectedProductId(filteredProducts[0].id.toString());
       } else {
-        setSelectedProductId(""); // Reset if no products match
+        setSelectedProductId("");
       }
     }
   }, [selectedSubCategoryId, products]);
@@ -156,7 +156,6 @@ const ItemsPage = () => {
       setNotificationMessage(`Item '${products[item.productId]?.name}' deleted successfully`);
       setShowNotification(true);
 
-      // Adjust current page if deleting the last item on the current page
       if (updatedItems.length <= (currentPage - 1) * itemsPerPage && currentPage > 1) {
         setCurrentPage(currentPage - 1);
       }

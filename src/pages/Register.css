@@ -4,7 +4,7 @@
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    border-radius: 10px; /* Additional roundness for the form container */
+    border-radius: 10px;
   }
   
   .register-form {
@@ -22,34 +22,33 @@
   .register-form input[type="password"] {
     padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 10px; /* More rounded edges for input fields */
+    border-radius: 10px;
     margin-top: 1px;
   }
   
-  /* Validation messages */
   .validation-message {
     margin-top: 1px;
-    color: #d9534f; /* Error color for messages */
+    color: #d9534f; 
     font-size: 0.85rem;
-    padding-left: 5px; /* Aligns text with input fields */
+    padding-left: 5px;
   }
   
   .register-form .avatar-upload {
     text-align: center;
-    position: relative; /* For positioning the upload label */
+    position: relative;
   }
   
   .avatar-upload {
     margin-top: 20px;
   }
 
-  /* Custom upload button */
+
   .register-form .upload-button {
     padding: 10px 20px;
     background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 10px; /* Rounded button for avatar upload */
+    border-radius: 10px; 
     cursor: pointer;
     font-size: 1rem;
     transition: background-color 0.3s ease;
@@ -68,8 +67,8 @@
     margin-top: 20px;
     width: 150px;
     height: 150px;
-    border-radius: 50%; /* Makes the image round */
-    object-fit: cover; /* Ensures the image is not distorted */
+    border-radius: 50%; 
+    object-fit: cover; 
   }
   
   .register-btn {
@@ -80,9 +79,9 @@
     cursor: pointer;
     font-size: 1rem;
     transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-    background: #007bff; /* Default solid background */
-    color: #fff; /* Default text color */
-    outline: none; /* Removes the outline to make the custom styles stand out */
+    background: #007bff;
+    color: #fff;
+    outline: none;
   }
   
   .register-btn.disabled {
@@ -92,21 +91,20 @@
   }
   
   .register-btn.active {
-    background-image: linear-gradient(45deg, #006bbf, #009bff); /* Gradient background */
+    background-image: linear-gradient(45deg, #006bbf, #009bff);
   }
   
   .register-btn:not(.disabled):hover {
-    background-image: linear-gradient(45deg, #005cbf, #008bff); /* Slightly darker gradient on hover */
-    transform: translateY(-2px); /* Slight upward lift on hover */
-    box-shadow: 0 10px 20px rgba(0, 123, 255, 0.6); /* Glowing effect */
+    background-image: linear-gradient(45deg, #005cbf, #008bff);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 123, 255, 0.6);
   }
   
   .register-btn:not(.disabled):active {
-    transform: translateY(-1px); /* Slightly pressing down the button when clicked */
-    box-shadow: 0 5px 10px rgba(0, 123, 255, 0.5); /* Less glow on active to simulate depth */
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 123, 255, 0.5);
   }
-  
-  /* Responsive adjustments for smaller screens */
+
   @media (max-width: 768px) {
     .register-container {
       padding: 20px 10px;

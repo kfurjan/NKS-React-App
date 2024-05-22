@@ -19,7 +19,6 @@ const CustomersTable = ({ isAuthenticated }) => {
   const [dialogData, setDialogData] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
 
-  // Fetch data effect
   useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
@@ -55,7 +54,6 @@ const CustomersTable = ({ isAuthenticated }) => {
     fetchData();
   }, [currentPage, pageSize, sortField, sortOrder]);
 
-  // Update filtered customers effect
   useEffect(() => {
     const filtered = customers.filter(
       (customer) =>
@@ -77,7 +75,6 @@ const CustomersTable = ({ isAuthenticated }) => {
     setFilteredCustomers(filtered);
   }, [customers, searchQuery, cities]);
 
-  // Event handlers
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -92,7 +89,7 @@ const CustomersTable = ({ isAuthenticated }) => {
   };
 
   const handleItemClick = async (event, customer) => {
-    event.stopPropagation();  // Stop the event from propagating further
+    event.stopPropagation();
     if (!isAuthenticated) return;
   
     try {

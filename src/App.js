@@ -9,7 +9,7 @@ import LoginPage from "./pages/Login.jsx";
 import RegisterPage from "./pages/Register.jsx";
 import ErrorPage from "./pages/Error.jsx";
 import ProfilePage from "./pages/Profile.jsx";
-import ProtectedRoute from "./components/ProtectedRoute"; // Import ProtectedRoute
+import ProtectedRoute from "./components/ProtectedRoute";
 import ItemsPage from "./pages/Items.jsx";
 
 const router = createBrowserRouter([

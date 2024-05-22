@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Header from '../components/Header.jsx'; // Adjust the path as necessary
+import Header from '../components/Header.jsx';
 
 const RootLayout = () => {
   return (

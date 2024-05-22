@@ -4,7 +4,7 @@
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px; /* Roundness to match RegisterPage */
+    border-radius: 10px; 
 }
 
 .login-form {
@@ -15,7 +15,7 @@
 
 .login-form h2 {
     text-align: center;
-    color: #003366; /* Color to match RegisterPage */
+    color: #003366;
 }
 
 .login-form label {
@@ -29,39 +29,38 @@
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ddd;
-    border-radius: 5px; /* Slightly rounded edges for input fields */
+    border-radius: 5px;
 }
 
 .login-btn {
     padding: 10px 15px;
-    background-color: #007bff; /* Button color to match RegisterPage */
-    color: white; /* Text color for readability */
+    background-color: #007bff; 
+    color: white;
     border: none;
-    border-radius: 5px; /* Button roundness to match RegisterPage */
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
 }
 
 .login-btn:hover {
-    background-color: #0056b3; /* Darker blue on hover for effect */
-    transform: translateY(-2px); /* Lift effect on hover */
+    background-color: #0056b3; 
+    transform: translateY(-2px); 
 }
 
 .login-btn:active {
-    transform: translateY(1px); /* Pressed effect on active */
+    transform: translateY(1px);
 }
 
 .error {
-    color: #721c24; /* Dark red color for text */
-    background-color: #f8d7da; /* Light red background */
-    border: 1px solid #f5c2c7; /* Slightly darker border for visibility */
+    color: #721c24;
+    background-color: #f8d7da; 
+    border: 1px solid #f5c2c7;
     padding: 10px;
     margin-top: 10px;
-    border-radius: 5px; /* Rounded corners */
-    text-align: center; /* Center the text within the error box */
+    border-radius: 5px; 
+    text-align: center;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .login-container {
         padding: 20px 10px;

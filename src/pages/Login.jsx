@@ -23,7 +23,6 @@ const LoginPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Dispatch the login action with the login data
     dispatch(login({ email: loginData.email, password: loginData.password }));
   };
 
@@ -61,7 +60,6 @@ const LoginPage = () => {
           Login
         </button>
         {loginError && <div className="error">{loginError}</div>}{" "}
-        {/* Display the error message if it exists */}
       </form>
     </div>
   );

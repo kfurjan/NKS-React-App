@@ -6,7 +6,6 @@ export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const UPDATE_USER = "UPDATE_USER";
 
-// Async action creator for login
 export const login = (loginData) => {
   return (dispatch) => {
     axios
@@ -31,7 +30,6 @@ export const login = (loginData) => {
   };
 };
 
-// Sync action creator for login success
 export const loginSuccess = (userData) => ({
   type: LOGIN_SUCCESS,
   payload: userData,
@@ -42,7 +40,6 @@ export const loginFailure = (error) => ({
   payload: error,
 });
 
-// Sync action creator for logout
 export const logout = () => ({
   type: LOGOUT,
 });
@@ -76,7 +73,6 @@ export const register = (formData, callback) => {
         };
       })
       .catch((error) => {
-        // Handle errors
         console.error("Registration failed:", error);
       });
   };

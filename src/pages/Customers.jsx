@@ -1,5 +1,5 @@
 import React from "react";
-import CustomersTable from "../components/CustomersTable"; // Adjust the path as necessary
+import CustomersTable from "../components/CustomersTable";
 import { useSelector } from "react-redux";
 
 export default function CustomersPage() {
@@ -7,7 +7,6 @@ export default function CustomersPage() {
   return (
     <div>
       <CustomersTable isAuthenticated={isAuthenticated}/>
-      {/* This includes the CustomersTable component in your page */}
     </div>
   );
 }
