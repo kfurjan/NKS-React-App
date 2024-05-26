@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../redux/actions/authActions";
@@ -14,28 +14,36 @@ const LoginPage = () => {
   const loginError = useSelector((state) => state.auth.error);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const navigate = useNavigate();
-  
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setLoginData({ ...loginData, [name]: value });
+  const handleInputChange = function (event) { // using function declaration instead of arrow function
+    var name = event.target.name;
+    var value = event.target.value;
+    setLoginData(Object.assign({}, loginData, { [name]: value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = function (event) {
     event.preventDefault();
     dispatch(login({ email: loginData.email, password: loginData.password }));
   };
 
-  React.useEffect(() => {
+  useEffect(function () {
     if (isAuthenticated) {
       navigate('/customers');
     }
   }, [isAuthenticated, navigate]);
 
+  useEffect(function () {
+    // ES5 Vanilla JS DOM manipulation example
+    var titleElement = document.getElementById("login-title");
+    if (titleElement) {
+      titleElement.innerHTML = "Please Login";
+    }
+  }, []);
+
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Login</h2>
+        <h2 id="login-title">Login</h2>
         <label htmlFor="email">Username:</label>
         <input
           type="email"
@@ -59,7 +67,7 @@ const LoginPage = () => {
         <button type="submit" className="login-btn">
           Login
         </button>
-        {loginError && <div className="error">{loginError}</div>}{" "}
+        {loginError && <div className="error">{loginError}</div>}
       </form>
     </div>
   );
