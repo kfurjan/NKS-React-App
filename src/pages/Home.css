@@ -1,33 +1,30 @@
 .homepage {
-    padding-top: 50px;
-    text-align: center;
-  }
-  
-  .features-section .card {
-    border: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-  }
-  
-  .features-section .card:hover {
-    transform: translateY(-10px);
-  }
-  
-  .feature-card {
-    width: 18rem;
-    margin: auto;
-    padding: 20px;
-  }
-  
-  .feature-card .card-title {
-    font-size: 1.5rem;
-  }
-  
-  .feature-card .card-text {
-    font-size: 1rem;
-  }
-  
-  .feature-card .btn {
-    margin-top: 15px;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  /* Align items to the top */
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  padding-top: 20px;
+  /* Add padding to create space at the top */
+}
+
+.features-section {
+  width: 100%;
+}
+
+.feature-card {
+  height: 250px;
+  /* Adjust height as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.feature-card .btn {
+  margin-top: auto;
+}
+
+.list-view .feature-card {
+  width: 100%;
+}
