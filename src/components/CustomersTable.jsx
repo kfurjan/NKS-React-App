@@ -91,44 +91,55 @@ const CustomersTable = ({ isAuthenticated }) => {
   const handleItemClick = async (event, customer) => {
     event.stopPropagation();
     if (!isAuthenticated) return;
-  
+
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const config = {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       };
-  
-      const billsResponse = await axios.get(`http://localhost:3000/Bill?customerId=${customer.id}`, config);
+
+      const billsResponse = await axios.get(
+        `http://localhost:3000/Bill?customerId=${customer.id}`,
+        config
+      );
       const bills = billsResponse.data;
-  
-      const billsWithCardDetails = await Promise.all(bills.map(async (bill) => {
-        if (!bill.creditCardId) {
+
+      const billsWithCardDetails = await Promise.all(
+        bills.map(async (bill) => {
+          if (!bill.creditCardId) {
+            return {
+              ...bill,
+              creditCardType: "No credit card",
+              cardNumber: "N/A",
+              expiration: "N/A",
+            };
+          }
+          const creditCardResponse = await axios.get(
+            `http://localhost:3000/CreditCard/${bill.creditCardId}`,
+            config
+          );
+          const creditCard = creditCardResponse.data;
+
           return {
             ...bill,
-            creditCardType: "No credit card",
-            cardNumber: "N/A",
-            expiration: "N/A"
+            creditCardType: creditCard.type,
+            cardNumber: creditCard.cardNumber,
+            expiration: `${creditCard.expirationMonth}/${creditCard.expirationYear}`,
           };
-        }
-        const creditCardResponse = await axios.get(`http://localhost:3000/CreditCard/${bill.creditCardId}`, config);
-        const creditCard = creditCardResponse.data;
-  
-        return {
-          ...bill,
-          creditCardType: creditCard.type,
-          cardNumber: creditCard.cardNumber,
-          expiration: `${creditCard.expirationMonth}/${creditCard.expirationYear}`
-        };
-      }));
-  
-      openAccountDetailsDialog(billsWithCardDetails, `${customer.name} ${customer.surname}`);
+        })
+      );
+
+      openAccountDetailsDialog(
+        billsWithCardDetails,
+        `${customer.name} ${customer.surname}`
+      );
     } catch (error) {
       console.error("Failed to fetch account details:", error);
     }
   };
-  
+
   const openAccountDetailsDialog = (accountDetails, customerName) => {
-    setDialogData({ accountDetails, customerName }); 
+    setDialogData({ accountDetails, customerName });
     setShowDialog(true);
   };
 
@@ -149,6 +160,31 @@ const CustomersTable = ({ isAuthenticated }) => {
         value={searchQuery}
         onChange={handleSearch}
       />
+      <div className="table-controls">
+        <div className="page-size">
+          <Button
+            className={pageSize === 10 ? "selected-page-size" : ""}
+            onClick={() => handlePageSizeChange(10)}
+            variant="outline-primary"
+          >
+            10
+          </Button>
+          <Button
+            className={pageSize === 20 ? "selected-page-size" : ""}
+            onClick={() => handlePageSizeChange(20)}
+            variant="outline-primary"
+          >
+            20
+          </Button>
+          <Button
+            className={pageSize === 50 ? "selected-page-size" : ""}
+            onClick={() => handlePageSizeChange(50)}
+            variant="outline-primary"
+          >
+            50
+          </Button>
+        </div>
+      </div>
       <Table striped bordered hover className="customers-table">
         <thead>
           <tr>
@@ -237,7 +273,9 @@ const CustomersTable = ({ isAuthenticated }) => {
               key={pageNumber}
               onClick={() => handlePageChange(pageNumber)}
               className={currentPage === pageNumber ? "current-page" : ""}
-              variant={currentPage === pageNumber ? "primary" : "outline-primary"}
+              variant={
+                currentPage === pageNumber ? "primary" : "outline-primary"
+              }
             >
               {pageNumber}
             </Button>
@@ -249,29 +287,6 @@ const CustomersTable = ({ isAuthenticated }) => {
           variant="outline-primary"
         >
           Next
-        </Button>
-      </div>
-      <div className="page-size">
-        <Button
-          className={pageSize === 10 ? "selected-page-size" : ""}
-          onClick={() => handlePageSizeChange(10)}
-          variant="outline-primary"
-        >
-          10
-        </Button>
-        <Button
-          className={pageSize === 20 ? "selected-page-size" : ""}
-          onClick={() => handlePageSizeChange(20)}
-          variant="outline-primary"
-        >
-          20
-        </Button>
-        <Button
-          className={pageSize === 50 ? "selected-page-size" : ""}
-          onClick={() => handlePageSizeChange(50)}
-          variant="outline-primary"
-        >
-          50
         </Button>
       </div>
     </Container>

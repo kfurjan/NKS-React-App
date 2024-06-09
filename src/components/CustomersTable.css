@@ -1,111 +1,57 @@
-.table-container {
-  max-width: 1200px;
-  margin: 20px auto;
-  display: flex; 
-  flex-direction: column;
-  align-items: center; 
-  padding: 20px;
-  background: #fff;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
 
-.table-title {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  color: #333;
-  text-align: center;
-}
-
-.customers-table {
+.table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
-}
-
-.customers-table th, .customers-table td {
-  border: 1px solid #ddd;
-  padding: 12px;
+  margin: 20px 0;
+  font-size: 18px;
   text-align: left;
 }
 
-.customers-table th {
-  background-color: #f8f9fa;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.table th, .table td {
+  border: 1px solid #ddd;
+  padding: 12px 15px;
 }
 
-.customers-table th:hover {
-  background-color: #e9ecef;
+.table th {
+  background-color: #388e3c;
+  color: white;
+  text-align: left;
 }
 
-.customers-table tbody tr:hover {
-  background-color: #f1f1f1;
+.table tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
-.pagination, .page-size {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+.table tr:hover {
+  background-color: #ddd;
 }
 
-.pagination button, .page-size button {
-  padding: 10px 16px;
-  margin: 0 8px;
-  border: 1px solid #007bff;
+.table td {
+  color: #333;
+}
+
+.table-container {
+  padding: 20px;
   background-color: #fff;
-  color: #007bff;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
-.pagination button:hover, .page-size button:hover {
-  background-color: #e7f1ff;
+.table-controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
 }
 
-.pagination button.current-page, .page-size button.selected-page-size {
-  background-color: #007bff;
-  color: #fff;
+.page-size {
+  display: flex;
+  align-items: center;
 }
 
-.pagination button:disabled, .page-size button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.current-page, .selected-page-size {
-  font-weight: bold;
-}
-
-.clickable {
-  cursor: pointer;
-}
-
-.clickable:hover {
-  background-color: #f0f0f0;
+.page-size .btn {
+  margin-left: 5px;
 }
 
 .search-bar {
-  width: 100%;
-  padding: 12px;
   margin-bottom: 20px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
-  background-color: white;
-}
-
-@media (max-width: 600px) {
-  .table-container {
-    padding: 10px;
-  }
-
-  .customers-table th, .customers-table td {
-    padding: 8px;
-  }
-
-  .pagination button, .page-size button, .search-bar {
-    padding: 8px 12px;
-  }
 }

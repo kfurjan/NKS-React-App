@@ -1,13 +1,51 @@
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f5f5f5;
+  color: #333;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Override Bootstrap Button Styles */
+.btn {
+  background-color: #4caf50 !important; /* Green background */
+  border-color: #388e3c !important; /* Green border */
+  color: white !important;
+}
+
+.btn:hover, .btn:focus, .btn:active {
+  background-color: #388e3c !important; /* Darker green on hover */
+  border-color: #2e7d32 !important; /* Darker green border on hover */
+}
+
+.btn:disabled, .btn.disabled {
+  background-color: #a5d6a7 !important; /* Light green for disabled buttons */
+  border-color: #a5d6a7 !important; /* Light green border for disabled buttons */
+  color: #fff !important;
+}
+
+/* Override Bootstrap Table Pagination Styles */
+.page-link {
+  color: #4caf50 !important; /* Green text */
+}
+
+.page-link:hover, .page-link:focus {
+  color: #388e3c !important; /* Darker green text on hover */
+}
+
+.page-item.active .page-link {
+  background-color: #4caf50 !important; /* Green background */
+  border-color: #388e3c !important; /* Green border */
+  color: white !important;
+}
+
+.page-item.disabled .page-link {
+  color: #a5d6a7 !important; /* Light green for disabled page link */
 }

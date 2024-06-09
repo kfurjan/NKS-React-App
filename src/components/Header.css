@@ -1,104 +1,18 @@
+
 .header {
-    background-color: #003366;
-    color: white;
-    padding: 20px 40px;
-  }
-  
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-.nav-links a,
-.auth-links a,
-.logout-btn { 
-  font-size: 1rem;
+  background-color: #4caf50; /* Green color */
+  padding: 20px;
   color: white;
+  text-align: center;
+  border-bottom: 2px solid #388e3c;
+}
+
+.header a {
+  color: #ffffff; /* White color for links */
   text-decoration: none;
-  padding: 10px 15px;
-  font-weight: bold;
-  position: relative;
-  overflow: hidden;
-  transition: color 0.3s ease;
-  background-color: transparent;
-  border: none; 
-  cursor: pointer;
+  margin: 0 10px;
 }
 
-.nav-links a::before,
-.auth-links a::before,
-.logout-btn::before {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: 0;
-  left: 50%;
-  background-color: white;
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
+.header a:hover {
+  color: #c8e6c9; /* Light green color for hover */
 }
-
-  .nav-links a:hover::before,
-  .auth-links a:hover::before,
-  .logout-btn:hover::before {
-    width: 100%;
-    left: 0;
-    transform: translateX(0%);
-  }
-
-  .nav-links a:hover,
-  .auth-links a:hover,
-  .logout-btn:hover { 
-    color: #00bfff;
-  }
-  
-  .auth-links .button {
-    background-color: #007bff;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .auth-links .button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-  }
-  
-  .user-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .user-info span {
-    color: white;
-    margin-right: 10px;
-  }
-  
-  .profile-image {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover; 
-  }
-
-  @media (max-width: 768px) {
-    .navbar {
-      flex-direction: column;
-    }
-  
-    .nav-links,
-    .auth-links {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-    }
-  
-    .nav-links a,
-    .auth-links a {
-      margin: 5px;
-    }
-  }

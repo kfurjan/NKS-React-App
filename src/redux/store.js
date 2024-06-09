@@ -7,8 +7,8 @@ const rootReducer = combineReducers({
 });
 
 const store = createStore(
-    rootReducer,
-    applyMiddleware(thunk)
-  );
+  rootReducer,
+  applyMiddleware(thunk)
+);
 
 export default store;
