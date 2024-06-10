@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Table, Form, Button, Container } from "react-bootstrap";
+import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import "./CustomersTable.css";
 import Modal from "./Modal";
 
 const CustomersTable = ({ isAuthenticated }) => {
-  // Component state
   const [customers, setCustomers] = useState([]);
   const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -143,6 +143,11 @@ const CustomersTable = ({ isAuthenticated }) => {
     setShowDialog(true);
   };
 
+  const renderSortIcon = (field) => {
+    if (sortField !== field) return <FaSort />;
+    return sortOrder === "asc" ? <FaSortUp /> : <FaSortDown />;
+  };
+
   if (loading) return <p>Loading customers...</p>;
 
   return (
@@ -194,7 +199,7 @@ const CustomersTable = ({ isAuthenticated }) => {
                 setSortOrder(sortOrder === "asc" ? "desc" : "asc");
               }}
             >
-              ID
+              ID {renderSortIcon("id")}
             </th>
             <th
               onClick={() => {
@@ -202,7 +207,7 @@ const CustomersTable = ({ isAuthenticated }) => {
                 setSortOrder(sortOrder === "asc" ? "desc" : "asc");
               }}
             >
-              Name
+              Name {renderSortIcon("name")}
             </th>
             <th
               onClick={() => {
@@ -210,7 +215,7 @@ const CustomersTable = ({ isAuthenticated }) => {
                 setSortOrder(sortOrder === "asc" ? "desc" : "asc");
               }}
             >
-              Surname
+              Surname {renderSortIcon("surname")}
             </th>
             <th
               onClick={() => {
@@ -218,7 +223,7 @@ const CustomersTable = ({ isAuthenticated }) => {
                 setSortOrder(sortOrder === "asc" ? "desc" : "asc");
               }}
             >
-              Email
+              Email {renderSortIcon("email")}
             </th>
             <th
               onClick={() => {
@@ -226,7 +231,7 @@ const CustomersTable = ({ isAuthenticated }) => {
                 setSortOrder(sortOrder === "asc" ? "desc" : "asc");
               }}
             >
-              Telephone
+              Telephone {renderSortIcon("telephone")}
             </th>
             <th
               onClick={() => {
@@ -234,7 +239,7 @@ const CustomersTable = ({ isAuthenticated }) => {
                 setSortOrder(sortOrder === "asc" ? "desc" : "asc");
               }}
             >
-              City
+              City {renderSortIcon("city")}
             </th>
           </tr>
         </thead>
