@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../redux/actions/userActions";
-import "./Login.css";
+import "./LoginPage.css";
 
 const LoginPage = () => {
   const [loginData, setLoginData] = useState({

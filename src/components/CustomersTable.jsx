@@ -4,6 +4,7 @@ import { Table, Form, Button, Container } from "react-bootstrap";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import "./CustomersTable.css";
 import Modal from "./Modal";
+import { BASE_URL } from "../constants";
 
 const CustomersTable = ({ isAuthenticated }) => {
   const [customers, setCustomers] = useState([]);
@@ -31,8 +32,8 @@ const CustomersTable = ({ isAuthenticated }) => {
 
       try {
         const [customersResponse, citiesResponse] = await Promise.all([
-          axios.get(`http://localhost:3000/Customer?${queryParams}`),
-          axios.get(`http://localhost:3000/City`),
+          axios.get(`${BASE_URL}/Customer?${queryParams}`),
+          axios.get(`${BASE_URL}/City`),
         ]);
 
         setCustomers(customersResponse.data);
@@ -99,7 +100,7 @@ const CustomersTable = ({ isAuthenticated }) => {
       };
 
       const billsResponse = await axios.get(
-        `http://localhost:3000/Bill?customerId=${customer.id}`,
+        `${BASE_URL}/Bill?customerId=${customer.id}`,
         config
       );
       const bills = billsResponse.data;
@@ -115,7 +116,7 @@ const CustomersTable = ({ isAuthenticated }) => {
             };
           }
           const creditCardResponse = await axios.get(
-            `http://localhost:3000/CreditCard/${bill.creditCardId}`,
+            `${BASE_URL}/CreditCard/${bill.creditCardId}`,
             config
           );
           const creditCard = creditCardResponse.data;

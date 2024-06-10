@@ -2,15 +2,15 @@ import React from "react";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import RootLayout from "./pages/Root.jsx";
-import HomePage from "./pages/Home.jsx";
-import CustomersPage from "./pages/Customers.jsx";
-import LoginPage from "./pages/Login.jsx";
-import RegisterPage from "./pages/Register.jsx";
-import ErrorPage from "./pages/Error.jsx";
-import ProfilePage from "./pages/Profile.jsx";
+import RootLayout from "./pages/RootLayout.jsx";
+import HomePage from "./pages/HomePage.jsx";
+import CustomersPage from "./pages/CustomersPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import RegisterPage from "./pages/RegisterPage.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute";
-import ItemsPage from "./pages/Items.jsx";
+import ItemsPage from "./pages/ItemsPage.jsx";
 
 const router = createBrowserRouter([
   {

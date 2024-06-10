@@ -1,9 +1,7 @@
 import axios from "axios";
+import { BASE_URL } from "../../constants";
 
 // Constants
-const DOMAIN = "localhost";
-const PORT = 3000;
-const BASE_URL = `http://${DOMAIN}:${PORT}`;
 const LOGIN_URL = `${BASE_URL}/auth/login`;
 const REGISTER_URL = `${BASE_URL}/auth/register`;
 

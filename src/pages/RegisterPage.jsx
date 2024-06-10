@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { register } from "../redux/actions/userActions";
-import "./Register.css";
+import "./RegisterPage.css";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
