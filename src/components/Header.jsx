@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../redux/actions/authActions";
+import { logout } from "../redux/actions/userActions";
 import { Link } from "react-router-dom";
 import "./Header.css";
 

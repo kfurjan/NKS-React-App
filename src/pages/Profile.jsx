@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { updateUser } from "../redux/actions/authActions";
+import { updateUser } from "../redux/actions/userActions";
 import "./Profile.css";
 
 const ProfilePage = () => {
