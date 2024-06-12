@@ -1,5 +1,5 @@
 import React from "react";
-import CustomersTable from "../components/CustomersTable/CustomersTable.jsx";
+import CustomersTable from "../../components/CustomersTable/CustomersTable.jsx";
 import { useSelector } from "react-redux";
 
 export default function CustomersPage() {

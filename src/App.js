@@ -3,14 +3,14 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./pages/RootLayout.jsx";
-import HomePage from "./pages/HomePage.jsx";
-import CustomersPage from "./pages/CustomersPage.jsx";
-import LoginPage from "./pages/LoginPage.jsx";
-import RegisterPage from "./pages/RegisterPage.jsx";
-import ErrorPage from "./pages/ErrorPage.jsx";
-import ProfilePage from "./pages/ProfilePage.jsx";
+import HomePage from "./pages/HomePage/HomePage.jsx";
+import CustomersPage from "./pages/CustomersPage/CustomersPage.jsx";
+import LoginPage from "./pages/LoginPage/LoginPage.jsx";
+import RegisterPage from "./pages/RegisterPage/RegisterPage.jsx";
+import ErrorPage from "./pages/ErrorPage/ErrorPage.jsx";
+import ProfilePage from "./pages/ProfilePage/ProfilePage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute";
-import ItemsPage from "./pages/ItemsPage.jsx";
+import ItemsPage from "./pages/ItemsPage/ItemsPage.jsx";
 
 const router = createBrowserRouter([
   {
