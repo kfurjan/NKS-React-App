@@ -3,8 +3,8 @@ import axios from "axios";
 import { Table, Form, Button, Container } from "react-bootstrap";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import "./CustomersTable.css";
-import Modal from "./Modal";
-import { BASE_URL } from "../constants";
+import Modal from "../Modal/Modal";
+import { BASE_URL } from "../../utils/constants";
 
 const CustomersTable = ({ isAuthenticated }) => {
   const [customers, setCustomers] = useState([]);

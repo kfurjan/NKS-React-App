@@ -12,7 +12,7 @@ import {
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./ItemsPage.css";
-import { BASE_URL } from "../constants";
+import { BASE_URL } from "../utils/constants";
 
 const ItemsPage = () => {
   const { id } = useParams();
