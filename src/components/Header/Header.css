@@ -1,6 +1,6 @@
-
 .header {
-  background-color: #4caf50; /* Green color */
+  background-color: #4caf50;
+  /* Green color */
   padding: 20px;
   color: white;
   text-align: center;
@@ -8,11 +8,43 @@
 }
 
 .header a {
-  color: #ffffff; /* White color for links */
+  color: #ffffff;
+  /* White color for links */
   text-decoration: none;
   margin: 0 10px;
 }
 
 .header a:hover {
-  color: #c8e6c9; /* Light green color for hover */
+  color: #c8e6c9;
+  /* Light green color for hover */
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.profile-image {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+}
+
+.logout-btn {
+  background-color: #388e3c;
+  /* Green color for button */
+  color: white;
+  /* White text */
+  border: none;
+  padding: 5px 10px;
+  margin-left: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.logout-btn:hover {
+  background-color: #4caf50;
+  /* Lighter green on hover */
 }

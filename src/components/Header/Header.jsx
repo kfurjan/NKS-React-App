@@ -25,7 +25,7 @@ export default function Header() {
           {!isAuthenticated ? (
             <>
               <Link to="/login">Login</Link>
-              <Link to="/register">Register user</Link>
+              <Link to="/register">Register</Link>
             </>
           ) : (
             <div className="user-info">
