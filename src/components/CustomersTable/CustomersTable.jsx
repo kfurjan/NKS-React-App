@@ -21,8 +21,8 @@ const CustomersTable = ({ isAuthenticated }) => {
   const [showDialog, setShowDialog] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    const fetchData = async () => {
+    const fetchCustomersData = async () => {
+      setLoading(true);
       const queryParams = new URLSearchParams({
         _page: currentPage,
         _limit: pageSize,
@@ -52,28 +52,34 @@ const CustomersTable = ({ isAuthenticated }) => {
       }
     };
 
-    fetchData();
+    fetchCustomersData();
   }, [currentPage, pageSize, sortField, sortOrder]);
 
   useEffect(() => {
-    const filtered = customers.filter(
-      (customer) =>
-        (customer.name &&
-          customer.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        (customer.surname &&
-          customer.surname.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        (customer.email &&
-          customer.email.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        (customer.telephone &&
-          customer.telephone
-            .toLowerCase()
-            .includes(searchQuery.toLowerCase())) ||
-        (cities[customer.cityId] &&
-          cities[customer.cityId]
-            .toLowerCase()
-            .includes(searchQuery.toLowerCase()))
-    );
-    setFilteredCustomers(filtered);
+    const filterCustomers = () => {
+      const filtered = customers.filter(
+        (customer) =>
+          (customer.name &&
+            customer.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+          (customer.surname &&
+            customer.surname
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase())) ||
+          (customer.email &&
+            customer.email.toLowerCase().includes(searchQuery.toLowerCase())) ||
+          (customer.telephone &&
+            customer.telephone
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase())) ||
+          (cities[customer.cityId] &&
+            cities[customer.cityId]
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase()))
+      );
+      setFilteredCustomers(filtered);
+    };
+
+    filterCustomers();
   }, [customers, searchQuery, cities]);
 
   const handlePageChange = (pageNumber) => {
@@ -144,11 +150,6 @@ const CustomersTable = ({ isAuthenticated }) => {
     setShowDialog(true);
   };
 
-  const renderSortIcon = (field) => {
-    if (sortField !== field) return <FaSort />;
-    return sortOrder === "asc" ? <FaSortUp /> : <FaSortDown />;
-  };
-
   if (loading) return <p>Loading customers...</p>;
 
   return (
@@ -168,80 +169,80 @@ const CustomersTable = ({ isAuthenticated }) => {
       />
       <div className="table-controls">
         <div className="page-size">
-          <Button
-            className={pageSize === 10 ? "selected-page-size" : ""}
-            onClick={() => handlePageSizeChange(10)}
-            variant="outline-primary"
-          >
-            10
-          </Button>
-          <Button
-            className={pageSize === 20 ? "selected-page-size" : ""}
-            onClick={() => handlePageSizeChange(20)}
-            variant="outline-primary"
-          >
-            20
-          </Button>
-          <Button
-            className={pageSize === 50 ? "selected-page-size" : ""}
-            onClick={() => handlePageSizeChange(50)}
-            variant="outline-primary"
-          >
-            50
-          </Button>
+          <PageSizeButton
+            size={10}
+            currentPageSize={pageSize}
+            onPageSizeChange={handlePageSizeChange}
+          />
+          <PageSizeButton
+            size={20}
+            currentPageSize={pageSize}
+            onPageSizeChange={handlePageSizeChange}
+          />
+          <PageSizeButton
+            size={50}
+            currentPageSize={pageSize}
+            onPageSizeChange={handlePageSizeChange}
+          />
         </div>
       </div>
       <Table striped bordered hover className="customers-table">
         <thead>
           <tr>
-            <th
-              onClick={() => {
+            <TableHeader
+              field="id"
+              currentSortField={sortField}
+              currentSortOrder={sortOrder}
+              onSortChange={() => {
                 setSortField("id");
                 setSortOrder(sortOrder === "asc" ? "desc" : "asc");
               }}
-            >
-              ID {renderSortIcon("id")}
-            </th>
-            <th
-              onClick={() => {
+            />
+            <TableHeader
+              field="name"
+              currentSortField={sortField}
+              currentSortOrder={sortOrder}
+              onSortChange={() => {
                 setSortField("name");
                 setSortOrder(sortOrder === "asc" ? "desc" : "asc");
               }}
-            >
-              Name {renderSortIcon("name")}
-            </th>
-            <th
-              onClick={() => {
+            />
+            <TableHeader
+              field="surname"
+              currentSortField={sortField}
+              currentSortOrder={sortOrder}
+              onSortChange={() => {
                 setSortField("surname");
                 setSortOrder(sortOrder === "asc" ? "desc" : "asc");
               }}
-            >
-              Surname {renderSortIcon("surname")}
-            </th>
-            <th
-              onClick={() => {
+            />
+            <TableHeader
+              field="email"
+              currentSortField={sortField}
+              currentSortOrder={sortOrder}
+              onSortChange={() => {
                 setSortField("email");
                 setSortOrder(sortOrder === "asc" ? "desc" : "asc");
               }}
-            >
-              Email {renderSortIcon("email")}
-            </th>
-            <th
-              onClick={() => {
+            />
+            <TableHeader
+              field="telephone"
+              currentSortField={sortField}
+              currentSortOrder={sortOrder}
+              onSortChange={() => {
                 setSortField("telephone");
                 setSortOrder(sortOrder === "asc" ? "desc" : "asc");
               }}
-            >
-              Telephone {renderSortIcon("telephone")}
-            </th>
-            <th
-              onClick={() => {
+            />
+            <TableHeader
+              field="city"
+              currentSortField={sortField}
+              currentSortOrder={sortOrder}
+              onSortChange={() => {
                 setSortField("city");
                 setSortOrder(sortOrder === "asc" ? "desc" : "asc");
               }}
-            >
-              City {renderSortIcon("city")}
-            </th>
+            />
           </tr>
         </thead>
         <tbody>
@@ -263,39 +264,78 @@ const CustomersTable = ({ isAuthenticated }) => {
           ))}
         </tbody>
       </Table>
-      <div className="pagination">
-        <Button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-          variant="outline-primary"
-        >
-          Prev
-        </Button>
-        {[...Array(Math.min(totalPages, 10)).keys()].map((index) => {
-          const startPage = Math.max(1, currentPage - 5);
-          const pageNumber = startPage + index;
-          return (
-            <Button
-              key={pageNumber}
-              onClick={() => handlePageChange(pageNumber)}
-              className={currentPage === pageNumber ? "current-page" : ""}
-              variant={
-                currentPage === pageNumber ? "primary" : "outline-primary"
-              }
-            >
-              {pageNumber}
-            </Button>
-          );
-        })}
-        <Button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          variant="outline-primary"
-        >
-          Next
-        </Button>
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </Container>
+  );
+};
+
+const PageSizeButton = ({ size, currentPageSize, onPageSizeChange }) => (
+  <Button
+    className={currentPageSize === size ? "selected-page-size" : ""}
+    onClick={() => onPageSizeChange(size)}
+    variant="outline-primary"
+  >
+    {size}
+  </Button>
+);
+
+const TableHeader = ({
+  field,
+  currentSortField,
+  currentSortOrder,
+  onSortChange,
+}) => (
+  <th onClick={onSortChange}>
+    {field.charAt(0).toUpperCase() + field.slice(1)}{" "}
+    {currentSortField === field ? (
+      currentSortOrder === "asc" ? (
+        <FaSortUp />
+      ) : (
+        <FaSortDown />
+      )
+    ) : (
+      <FaSort />
+    )}
+  </th>
+);
+
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+  const pageButtons = [];
+  for (let i = 1; i <= Math.min(totalPages, 10); i++) {
+    const pageNumber = i;
+    pageButtons.push(
+      <Button
+        key={pageNumber}
+        onClick={() => onPageChange(pageNumber)}
+        className={currentPage === pageNumber ? "current-page" : ""}
+        variant={currentPage === pageNumber ? "primary" : "outline-primary"}
+      >
+        {pageNumber}
+      </Button>
+    );
+  }
+  return (
+    <div className="pagination">
+      <Button
+        onClick={() => onPageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+        variant="outline-primary"
+      >
+        Prev
+      </Button>
+      {pageButtons}
+      <Button
+        onClick={() => onPageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+        variant="outline-primary"
+      >
+        Next
+      </Button>
+    </div>
   );
 };
 
