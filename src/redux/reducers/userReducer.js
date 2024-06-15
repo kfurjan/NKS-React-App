@@ -7,7 +7,7 @@ import {
 } from "../actions/userActions";
 
 const initialState = {
-  isAuthenticated: false,
+  isUserLoggedIn: false,
   user: null,
   error: null,
 };
@@ -18,7 +18,7 @@ const userReducer = (state = initialState, action) => {
     case REGISTER_SUCCESS:
       return {
         ...state,
-        isAuthenticated: true,
+        isUserLoggedIn: true,
         user: {
           ...state.user,
           ...action.payload,
@@ -42,7 +42,7 @@ const userReducer = (state = initialState, action) => {
     case LOGOUT:
       return {
         ...state,
-        isAuthenticated: false,
+        isUserLoggedIn: false,
         user: null,
         error: null,
       };

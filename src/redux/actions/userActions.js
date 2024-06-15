@@ -54,7 +54,7 @@ export const login = (loginData) => {
         const errorMsg = error.response
           ? error.response.data.message
           : error.message;
-        console.error("Login failed:", errorMsg);
+        console.error("Login failed:", error);
         dispatch(loginFailure(errorMsg));
       });
   };

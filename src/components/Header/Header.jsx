@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import "./Header.css";
 
 export default function Header() {
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { isUserLoggedIn, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -22,7 +22,7 @@ export default function Header() {
           <Link to="/customers">Customers</Link>
         </div>
         <div className="auth-links">
-          {!isAuthenticated ? (
+          {!isUserLoggedIn ? (
             <>
               <Link to="/login">Login</Link>
               <Link to="/register">Register</Link>

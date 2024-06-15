@@ -3,10 +3,10 @@ import CustomersTable from "../../components/CustomersTable/CustomersTable.jsx";
 import { useSelector } from "react-redux";
 
 export default function CustomersPage() {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isUserLoggedIn = useSelector((state) => state.auth.isUserLoggedIn);
   return (
     <div>
-      <CustomersTable isAuthenticated={isAuthenticated}/>
+      <CustomersTable isUserLoggedIn={isUserLoggedIn}/>
     </div>
   );
 }

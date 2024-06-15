@@ -12,7 +12,7 @@ const LoginPage = () => {
 
   const dispatch = useDispatch();
   const loginError = useSelector((state) => state.auth.error);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isUserLoggedIn = useSelector((state) => state.auth.isUserLoggedIn);
   const navigate = useNavigate();
 
   const handleInputChange = function (event) { // using function declaration instead of arrow function
@@ -27,10 +27,10 @@ const LoginPage = () => {
   };
 
   useEffect(function () {
-    if (isAuthenticated) {
+    if (isUserLoggedIn) {
       navigate('/customers');
     }
-  }, [isAuthenticated, navigate]);
+  }, [isUserLoggedIn, navigate]);
 
   useEffect(function () {
     // ES5 Vanilla JS DOM manipulation example

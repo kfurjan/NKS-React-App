@@ -6,7 +6,7 @@ import "./CustomersTable.css";
 import Modal from "../Modal/Modal";
 import { BASE_URL } from "../../utils/constants";
 
-const CustomersTable = ({ isAuthenticated }) => {
+const CustomersTable = ({ isUserLoggedIn }) => {
   const [customers, setCustomers] = useState([]);
   const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -97,7 +97,7 @@ const CustomersTable = ({ isAuthenticated }) => {
 
   const handleItemClick = async (event, customer) => {
     event.stopPropagation();
-    if (!isAuthenticated) return;
+    if (!isUserLoggedIn) return;
 
     try {
       const token = localStorage.getItem("token");
@@ -250,12 +250,12 @@ const CustomersTable = ({ isAuthenticated }) => {
             <tr
               key={customer.id}
               onClick={(e) => handleItemClick(e, customer)}
-              className={isAuthenticated ? "clickable" : ""}
+              className={isUserLoggedIn ? "clickable" : ""}
             >
               <td>{customer.id}</td>
               <td>{customer.name}</td>
               <td>{customer.surname}</td>
-              <td style={{ color: isAuthenticated ? "blue" : "inherit" }}>
+              <td style={{ color: isUserLoggedIn ? "blue" : "inherit" }}>
                 {customer.email}
               </td>
               <td>{customer.telephone}</td>
