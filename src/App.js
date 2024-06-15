@@ -9,7 +9,7 @@ import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage/RegisterPage.jsx";
 import ErrorPage from "./pages/ErrorPage/ErrorPage.jsx";
 import ProfilePage from "./pages/ProfilePage/ProfilePage.jsx";
-import ProtectedRoute from "./components/ProtectedRoute";
+import UserLoggedInRoute from "./components/UserLoggedInRoute.jsx";
 import ItemsPage from "./pages/ItemsPage/ItemsPage.jsx";
 
 const router = createBrowserRouter([
@@ -23,9 +23,9 @@ const router = createBrowserRouter([
       {
         path: "items/:id",
         element: (
-          <ProtectedRoute>
+          <UserLoggedInRoute>
             <ItemsPage />
-          </ProtectedRoute>
+          </UserLoggedInRoute>
         ),
       },
       { path: "login", element: <LoginPage /> },
@@ -33,9 +33,9 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: (
-          <ProtectedRoute>
+          <UserLoggedInRoute>
             <ProfilePage />
-          </ProtectedRoute>
+          </UserLoggedInRoute>
         ),
       },
     ],

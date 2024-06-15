@@ -5,6 +5,7 @@ import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import "./CustomersTable.css";
 import Modal from "../Modal/Modal";
 import { BASE_URL } from "../../utils/constants";
+import Spinner from "../Spinner/Spinner";
 
 const CustomersTable = ({ isUserLoggedIn }) => {
   const [customers, setCustomers] = useState([]);
@@ -49,6 +50,7 @@ const CustomersTable = ({ isUserLoggedIn }) => {
         setLoading(false);
       } catch (error) {
         console.error("Failed to fetch data:", error);
+        setLoading(false); // Make sure to stop loading in case of error
       }
     };
 
@@ -150,7 +152,7 @@ const CustomersTable = ({ isUserLoggedIn }) => {
     setShowDialog(true);
   };
 
-  if (loading) return <p>Loading customers...</p>;
+  if (loading) return <Spinner />; // Show spinner while loading
 
   return (
     <Container className="table-container">
