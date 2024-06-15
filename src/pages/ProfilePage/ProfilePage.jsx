@@ -36,9 +36,11 @@ const ProfilePage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(updateUser(formData, () => {
-      navigate("/customers");
-    }));
+    dispatch(
+      updateUser(formData, () => {
+        navigate("/customers");
+      })
+    );
   };
 
   return (
