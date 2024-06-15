@@ -12,8 +12,6 @@ export default function Header() {
     dispatch(logout());
   };
 
-  console.log(user);
-
   return (
     <header className="header">
       <nav className="navbar">

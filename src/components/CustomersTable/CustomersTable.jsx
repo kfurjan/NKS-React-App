@@ -10,7 +10,7 @@ import Spinner from "../Spinner/Spinner";
 const CustomersTable = ({ isUserLoggedIn }) => {
   const [customers, setCustomers] = useState([]);
   const [cities, setCities] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
@@ -23,7 +23,7 @@ const CustomersTable = ({ isUserLoggedIn }) => {
 
   useEffect(() => {
     const fetchCustomersData = async () => {
-      setLoading(true);
+      setIsLoading(true);
       const queryParams = new URLSearchParams({
         _page: currentPage,
         _limit: pageSize,
@@ -47,10 +47,10 @@ const CustomersTable = ({ isUserLoggedIn }) => {
         setTotalPages(
           Math.ceil(customersResponse.headers["x-total-count"] / pageSize)
         );
-        setLoading(false);
+        setIsLoading(false);
       } catch (error) {
         console.error("Failed to fetch data:", error);
-        setLoading(false); // Make sure to stop loading in case of error
+        setIsLoading(false); // Make sure to stop loading in case of error
       }
     };
 
@@ -152,7 +152,7 @@ const CustomersTable = ({ isUserLoggedIn }) => {
     setShowDialog(true);
   };
 
-  if (loading) return <Spinner />; // Show spinner while loading
+  if (isLoading) return <Spinner />; // Show spinner while loading
 
   return (
     <Container className="table-container">

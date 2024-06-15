@@ -5,7 +5,7 @@ import { login } from "../../redux/actions/userActions";
 import "./LoginPage.css";
 
 const LoginPage = () => {
-  const [loginData, setLoginData] = useState({
+  const [userCredentials, setUserCredentials] = useState({
     email: "",
     password: "",
   });
@@ -18,12 +18,12 @@ const LoginPage = () => {
   const handleInputChange = function (event) { // using function declaration instead of arrow function
     var name = event.target.name;
     var value = event.target.value;
-    setLoginData(Object.assign({}, loginData, { [name]: value }));
+    setUserCredentials(Object.assign({}, userCredentials, { [name]: value }));
   };
 
   const handleSubmit = function (event) {
     event.preventDefault();
-    dispatch(login({ email: loginData.email, password: loginData.password }));
+    dispatch(login({ email: userCredentials.email, password: userCredentials.password }));
   };
 
   useEffect(function () {
@@ -50,7 +50,7 @@ const LoginPage = () => {
           id="email"
           name="email"
           placeholder="Enter your email"
-          value={loginData.email}
+          value={userCredentials.email}
           onChange={handleInputChange}
           required
         />
@@ -60,7 +60,7 @@ const LoginPage = () => {
           id="password"
           name="password"
           placeholder="Enter your password"
-          value={loginData.password}
+          value={userCredentials.password}
           onChange={handleInputChange}
           required
         />

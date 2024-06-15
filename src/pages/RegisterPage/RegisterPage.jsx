@@ -5,7 +5,7 @@ import { register } from "../../redux/actions/userActions";
 import "./RegisterPage.css";
 
 const RegisterPage = () => {
-  const [formData, setFormData] = useState({
+  const [registrationData, setRegistrationData] = useState({
     name: "",
     username: "",
     password: "",
@@ -17,7 +17,7 @@ const RegisterPage = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    setRegistrationData({ ...registrationData, [name]: value });
     validateField(name, value);
   };
 
@@ -51,21 +51,21 @@ const RegisterPage = () => {
   };
 
   const handleFileChange = (event) => {
-    setFormData({ ...formData, file: event.target.files[0] });
+    setRegistrationData({ ...registrationData, file: event.target.files[0] });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formData);
-    dispatch(registerAndNavigate(formData));
+    console.log(registrationData);
+    dispatch(registerAndNavigate(registrationData));
   };
 
   const isFormValid = () => {
     return (
-      formData.name &&
-      formData.username &&
-      formData.password &&
-      formData.file &&
+      registrationData.name &&
+      registrationData.username &&
+      registrationData.password &&
+      registrationData.file &&
       Object.values(validation).every((message) => message === "")
     );
   };
@@ -80,7 +80,7 @@ const RegisterPage = () => {
           type="text"
           id="name"
           name="name"
-          value={formData.name}
+          value={registrationData.name}
           onChange={handleInputChange}
           required
         />
@@ -93,7 +93,7 @@ const RegisterPage = () => {
           type="text"
           id="username"
           name="username"
-          value={formData.username}
+          value={registrationData.username}
           onChange={handleInputChange}
           required
         />
@@ -106,7 +106,7 @@ const RegisterPage = () => {
           type="password"
           id="password"
           name="password"
-          value={formData.password}
+          value={registrationData.password}
           onChange={handleInputChange}
           required
         />
@@ -125,12 +125,12 @@ const RegisterPage = () => {
             onChange={handleFileChange}
             style={{ display: "none" }}
           />
-          {formData.file && (
+          {registrationData.file && (
             <div className="preview">
               <img
-                src={URL.createObjectURL(formData.file)}
+                src={URL.createObjectURL(registrationData.file)}
                 alt="Avatar preview"
-                onLoad={() => URL.revokeObjectURL(formData.file)}
+                onLoad={() => URL.revokeObjectURL(registrationData.file)}
               />
             </div>
           )}

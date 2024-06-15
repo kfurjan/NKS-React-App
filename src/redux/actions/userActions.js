@@ -37,7 +37,6 @@ export const updateUserSuccess = (updatePayload) => ({
   payload: updatePayload,
 });
 
-// Thunk Actions
 export const login = (loginData) => {
   return (dispatch) => {
     axios
