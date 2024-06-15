@@ -10,7 +10,7 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage.jsx";
 import ErrorPage from "./pages/ErrorPage/ErrorPage.jsx";
 import ProfilePage from "./pages/ProfilePage/ProfilePage.jsx";
 import UserLoggedInRoute from "./components/UserLoggedInRoute.jsx";
-import ItemsPage from "./pages/ItemsPage/ItemsPage.jsx";
+import AccountItemsPage from "./pages/AccountItemsPage/AccountItemsPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         path: "items/:id",
         element: (
           <UserLoggedInRoute>
-            <ItemsPage />
+            <AccountItemsPage />
           </UserLoggedInRoute>
         ),
       },

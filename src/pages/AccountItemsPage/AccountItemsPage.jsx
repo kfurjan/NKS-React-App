@@ -11,25 +11,25 @@ import {
   Form,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./ItemsPage.css";
+import "./AccountItemsPage.css";
 import { BASE_URL } from "../../utils/constants";
 
-const ItemsPage = () => {
+const AccountItemsPage = () => {
   const { id } = useParams();
-  const [customer, setCustomer] = useState({});
-  const [items, setItems] = useState([]);
-  const [products, setProducts] = useState({});
-  const [categories, setCategories] = useState([]);
-  const [subCategories, setSubCategories] = useState([]);
-  const [filteredSubCategories, setFilteredSubCategories] = useState([]);
+  const [customerDetails, setCustomerDetails] = useState({});
+  const [accountItems, setAccountItems] = useState([]);
+  const [productList, setProductList] = useState({});
+  const [categoryList, setCategoryList] = useState([]);
+  const [subCategoryList, setSubCategoryList] = useState([]);
+  const [filteredSubCategoryList, setFilteredSubCategoryList] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [selectedSubCategoryId, setSelectedSubCategoryId] = useState("");
   const [selectedProductId, setSelectedProductId] = useState("");
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(8);
-  const [showAddItem, setShowAddItem] = useState(false);
-  const [showNotification, setShowNotification] = useState(false);
+  const [isAddItemFormVisible, setIsAddItemFormVisible] = useState(false);
+  const [isNotificationVisible, setIsNotificationVisible] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
 
   useEffect(() => {
@@ -40,7 +40,10 @@ const ItemsPage = () => {
 
     const fetchData = async () => {
       try {
-        const billResponse = await axios.get(`${BASE_URL}/Bill/${id}`, config);
+        const billResponse = await axios.get(
+          `${BASE_URL}/Bill/${id}`,
+          config
+        );
         const customerResponse = await axios.get(
           `${BASE_URL}/Customer/${billResponse.data.customerId}`,
           config
@@ -67,11 +70,11 @@ const ItemsPage = () => {
           {}
         );
 
-        setCustomer(customerResponse.data);
-        setItems(itemsResponse.data);
-        setProducts(productsById);
-        setCategories(categoriesResponse.data);
-        setSubCategories(subCategoriesResponse.data);
+        setCustomerDetails(customerResponse.data);
+        setAccountItems(itemsResponse.data);
+        setProductList(productsById);
+        setCategoryList(categoriesResponse.data);
+        setSubCategoryList(subCategoriesResponse.data);
 
         if (categoriesResponse.data.length > 0) {
           const defaultCategoryId = categoriesResponse.data[0].id.toString();
@@ -86,18 +89,18 @@ const ItemsPage = () => {
   }, [id]);
 
   useEffect(() => {
-    const relatedSubCategories = subCategories.filter(
-      (sub) => sub.categoryId.toString() === selectedCategoryId
+    const relatedSubCategories = subCategoryList.filter(
+      (subCategory) => subCategory.categoryId.toString() === selectedCategoryId
     );
-    setFilteredSubCategories(relatedSubCategories);
+    setFilteredSubCategoryList(relatedSubCategories);
     if (relatedSubCategories.length > 0) {
       setSelectedSubCategoryId(relatedSubCategories[0].id.toString());
     }
-  }, [selectedCategoryId, subCategories]);
+  }, [selectedCategoryId, subCategoryList]);
 
   useEffect(() => {
     if (selectedSubCategoryId) {
-      const filteredProducts = Object.values(products).filter(
+      const filteredProducts = Object.values(productList).filter(
         (product) =>
           product.subCategoryId.toString() === selectedSubCategoryId.toString()
       );
@@ -107,7 +110,7 @@ const ItemsPage = () => {
         setSelectedProductId("");
       }
     }
-  }, [selectedSubCategoryId, products]);
+  }, [selectedSubCategoryId, productList]);
 
   const handleCategoryChange = (e) => {
     setSelectedCategoryId(e.target.value);
@@ -136,38 +139,38 @@ const ItemsPage = () => {
       productId: selectedProductId,
       quantity: selectedQuantity,
       totalPrice:
-        products[selectedProductId].price * parseInt(selectedQuantity, 10),
+        productList[selectedProductId].price * parseInt(selectedQuantity, 10),
     };
 
     try {
       const response = await axios.post(`${BASE_URL}/Item`, newItem, config);
-      setItems((prevItems) => [...prevItems, response.data]);
+      setAccountItems((prevItems) => [...prevItems, response.data]);
       setNotificationMessage(
-        `Item '${products[selectedProductId]?.name}' added successfully`
+        `Item '${productList[selectedProductId]?.name}' added successfully`
       );
-      setShowNotification(true);
+      setIsNotificationVisible(true);
       setTimeout(() => {
-        setShowNotification(false);
+        setIsNotificationVisible(false);
       }, 3000);
     } catch (error) {
       console.error("Failed to add item:", error);
       setNotificationMessage(`Failed to add item`);
-      setShowNotification(true);
+      setIsNotificationVisible(true);
       setTimeout(() => {
-        setShowNotification(false);
+        setIsNotificationVisible(false);
       }, 3000);
     }
   };
 
-  const currentItems = items.slice(
+  const currentBillItems = accountItems.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-  const totalPages = Math.ceil(items.length / itemsPerPage);
+  const totalPages = Math.ceil(accountItems.length / itemsPerPage);
 
   const handleDeleteItem = async (itemId) => {
-    const item = items.find((item) => item.id === itemId);
-    if (!item) {
+    const itemToDelete = accountItems.find((item) => item.id === itemId);
+    if (!itemToDelete) {
       console.error("Item not found");
       return;
     }
@@ -175,34 +178,36 @@ const ItemsPage = () => {
     const config = { headers: { Authorization: `Bearer ${token}` } };
     try {
       await axios.delete(`${BASE_URL}/Item/${itemId}`, config);
-      const updatedItems = items.filter((item) => item.id !== itemId);
-      setItems(updatedItems);
+      const updatedBillItems = accountItems.filter((item) => item.id !== itemId);
+      setAccountItems(updatedBillItems);
       setNotificationMessage(
-        `Item '${products[item.productId]?.name}' deleted successfully`
+        `Item '${
+          productList[itemToDelete.productId]?.name
+        }' deleted successfully`
       );
-      setShowNotification(true);
+      setIsNotificationVisible(true);
 
       if (
-        updatedItems.length <= (currentPage - 1) * itemsPerPage &&
+        updatedBillItems.length <= (currentPage - 1) * itemsPerPage &&
         currentPage > 1
       ) {
         setCurrentPage(currentPage - 1);
       }
 
       setTimeout(() => {
-        setShowNotification(false);
+        setIsNotificationVisible(false);
       }, 3000);
     } catch (error) {
       console.error("Failed to delete item:", error);
-      setNotificationMessage(`Failed to delete '${item.name}'`);
-      setShowNotification(true);
+      setNotificationMessage(`Failed to delete '${itemToDelete.name}'`);
+      setIsNotificationVisible(true);
       setTimeout(() => {
-        setShowNotification(false);
+        setIsNotificationVisible(false);
       }, 3000);
     }
   };
 
-  const selectedProductDetails = products[selectedProductId] || {};
+  const selectedProductDetails = productList[selectedProductId] || {};
 
   return (
     <Container>
@@ -213,38 +218,38 @@ const ItemsPage = () => {
         <Col md={8}>
           <h2 className="account-title">Account Items</h2>
           <h3 className="customer-name">
-            {customer.name} {customer.surname}
+            {customerDetails.name} {customerDetails.surname}
           </h3>
         </Col>
         <Col md={4}>
           <div className="text-right">
             <p>
-              <strong>Customer ID:</strong> {customer.id}
+              <strong>Customer ID:</strong> {customerDetails.id}
             </p>
             <p>
               <strong>Bill ID:</strong> {id}
             </p>
             <p>
-              <strong>Telephone:</strong> {customer.telephone}
+              <strong>Telephone:</strong> {customerDetails.telephone}
             </p>
             <p>
-              <strong>Email:</strong> {customer.email}
+              <strong>Email:</strong> {customerDetails.email}
             </p>
             <Button
-              onClick={() => setShowAddItem(!showAddItem)}
+              onClick={() => setIsAddItemFormVisible(!isAddItemFormVisible)}
               variant="primary"
             >
-              {showAddItem ? "Hide" : "Add"} Items to Account
+              {isAddItemFormVisible ? "Hide" : "Add"} Items to Account
             </Button>
           </div>
         </Col>
       </Row>
-      {showAddItem && (
+      {isAddItemFormVisible && (
         <Row>
           <Col md={12}>
             <Form
               className={`p-3 form-animation ${
-                showAddItem ? "form-visible" : "form-hidden"
+                isAddItemFormVisible ? "form-visible" : "form-hidden"
               }`}
               style={{ backgroundColor: "#f8f9fa", borderRadius: "5px" }}
             >
@@ -259,7 +264,7 @@ const ItemsPage = () => {
                       value={selectedCategoryId}
                       onChange={handleCategoryChange}
                     >
-                      {categories.map((category) => (
+                      {categoryList.map((category) => (
                         <option key={category.id} value={category.id}>
                           {category.name}
                         </option>
@@ -277,7 +282,7 @@ const ItemsPage = () => {
                       value={selectedSubCategoryId}
                       onChange={handleSubCategoryChange}
                     >
-                      {filteredSubCategories.map((subcategory) => (
+                      {filteredSubCategoryList.map((subcategory) => (
                         <option key={subcategory.id} value={subcategory.id}>
                           {subcategory.name}
                         </option>
@@ -297,10 +302,10 @@ const ItemsPage = () => {
                       value={selectedProductId}
                       onChange={handleProductChange}
                     >
-                      {Object.values(products)
+                      {Object.values(productList)
                         .filter(
-                          (prod) =>
-                            prod.subCategoryId.toString() ===
+                          (product) =>
+                            product.subCategoryId.toString() ===
                             selectedSubCategoryId.toString()
                         )
                         .map((product) => (
@@ -360,10 +365,12 @@ const ItemsPage = () => {
           </Col>
         </Row>
       )}
-      {showNotification && (
+      {isNotificationVisible && (
         <Alert
           variant="success"
-          className={`notification-alert ${showNotification ? "show" : ""}`}
+          className={`notification-alert ${
+            isNotificationVisible ? "show" : ""
+          }`}
         >
           {notificationMessage}
         </Alert>
@@ -384,14 +391,14 @@ const ItemsPage = () => {
               </tr>
             </thead>
             <tbody>
-              {currentItems.map((item) => (
+              {currentBillItems.map((item) => (
                 <tr key={item.id}>
                   <td>{item.id}</td>
-                  <td>{products[item.productId]?.name}</td>
-                  <td>{products[item.productId]?.productNumber}</td>
-                  <td>{products[item.productId]?.color}</td>
+                  <td>{productList[item.productId]?.name}</td>
+                  <td>{productList[item.productId]?.productNumber}</td>
+                  <td>{productList[item.productId]?.color}</td>
                   <td>{item.quantity}</td>
-                  <td>${products[item.productId]?.price?.toFixed(2)}</td>
+                  <td>${productList[item.productId]?.price?.toFixed(2)}</td>
                   <td>${item.totalPrice.toFixed(2)}</td>
                   <td>
                     <Button
@@ -420,9 +427,11 @@ const ItemsPage = () => {
               ))}
             </div>
             <strong>
-              Total of {items.reduce((sum, item) => sum + item.quantity, 0)}{" "}
+              Total of {accountItems.reduce((sum, item) => sum + item.quantity, 0)}{" "}
               items: $
-              {items.reduce((sum, item) => sum + item.totalPrice, 0).toFixed(2)}
+              {accountItems
+                .reduce((sum, item) => sum + item.totalPrice, 0)
+                .toFixed(2)}
             </strong>
           </div>
         </Col>
@@ -431,4 +440,4 @@ const ItemsPage = () => {
   );
 };
 
-export default ItemsPage;
+export default AccountItemsPage;
