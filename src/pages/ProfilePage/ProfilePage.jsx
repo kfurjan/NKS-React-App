@@ -9,7 +9,7 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
+  const [profileData, setProfileData] = useState({
     name: user.name,
     username: user.email,
     password: user.password,
@@ -17,7 +17,7 @@ const ProfilePage = () => {
   });
 
   useEffect(() => {
-    setFormData({
+    setProfileData({
       name: user.name,
       username: user.email,
       password: user.password,
@@ -27,17 +27,17 @@ const ProfilePage = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    setProfileData({ ...profileData, [name]: value });
   };
 
   const handleFileChange = (event) => {
-    setFormData({ ...formData, file: event.target.files[0] });
+    setProfileData({ ...profileData, file: event.target.files[0] });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(
-      updateUser(formData, () => {
+      updateUser(profileData, () => {
         navigate("/customers");
       })
     );
@@ -52,7 +52,7 @@ const ProfilePage = () => {
           type="text"
           id="name"
           name="name"
-          value={formData.name}
+          value={profileData.name}
           onChange={handleInputChange}
           required
         />
@@ -62,7 +62,7 @@ const ProfilePage = () => {
           type="text"
           id="username"
           name="username"
-          value={formData.username}
+          value={profileData.username}
           onChange={handleInputChange}
           required
         />
@@ -72,7 +72,7 @@ const ProfilePage = () => {
           type="password"
           id="password"
           name="password"
-          value={formData.password}
+          value={profileData.password}
           onChange={handleInputChange}
           required
         />
@@ -89,11 +89,11 @@ const ProfilePage = () => {
             style={{ display: "none" }}
           />
           <div className="preview">
-            {formData.file ? (
+            {profileData.file ? (
               <img
-                src={URL.createObjectURL(formData.file)}
+                src={URL.createObjectURL(profileData.file)}
                 alt="Avatar preview"
-                onLoad={() => URL.revokeObjectURL(formData.file)}
+                onLoad={() => URL.revokeObjectURL(profileData.file)}
               />
             ) : (
               user.image && (

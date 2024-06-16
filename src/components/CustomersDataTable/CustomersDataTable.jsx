@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Table, Form, Button, Container } from "react-bootstrap";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
-import "./CustomersTable.css";
+import "./CustomersDataTable.css";
 import Modal from "../Modal/Modal";
 import { BASE_URL } from "../../utils/constants";
 import Spinner from "../Spinner/Spinner";
 
-const CustomersTable = ({ isUserLoggedIn }) => {
+const CustomersDataTable = ({ isUserLoggedIn }) => {
   const [customers, setCustomers] = useState([]);
   const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -341,4 +341,4 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   );
 };
 
-export default CustomersTable;
+export default CustomersDataTable;
