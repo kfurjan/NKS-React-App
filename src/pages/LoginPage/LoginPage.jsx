@@ -6,13 +6,13 @@ import { formReducer } from "../../redux/reducers/formReducer";
 import { SET_FIELD } from "../../utils/constants";
 import "./LoginPage.css";
 
-const initialState = {
+const initialLoginState = {
   email: "",
   password: "",
 };
 
 const LoginPage = () => {
-  const [state, dispatchForm] = useReducer(formReducer, initialState);
+  const [state, dispatchForm] = useReducer(formReducer, initialLoginState);
   const dispatch = useDispatch();
   const loginError = useSelector((state) => state.auth.error);
   const isUserLoggedIn = useSelector((state) => state.auth.isUserLoggedIn);

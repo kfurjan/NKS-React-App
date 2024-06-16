@@ -6,7 +6,7 @@ import { formReducer } from "../../redux/reducers/formReducer";
 import { SET_FILE, SET_FIELD } from "../../utils/constants";
 import "./RegisterPage.css";
 
-const initialState = {
+const initialRegisterState = {
   name: "",
   username: "",
   password: "",
@@ -15,7 +15,7 @@ const initialState = {
 };
 
 const RegisterPage = () => {
-  const [state, dispatchForm] = useReducer(formReducer, initialState);
+  const [state, dispatchForm] = useReducer(formReducer, initialRegisterState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
