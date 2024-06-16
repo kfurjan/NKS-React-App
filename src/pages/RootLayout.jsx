@@ -2,7 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../components/Header/Header.jsx';
 
-const RootLayout = () => {
+const AppLayout = () => {
   return (
     <>
       <Header />
@@ -13,4 +13,4 @@ const RootLayout = () => {
   );
 };
 
-export default RootLayout;
+export default AppLayout;

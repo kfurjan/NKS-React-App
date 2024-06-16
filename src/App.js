@@ -2,7 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import RootLayout from "./pages/RootLayout.jsx";
+import AppLayout from "./pages/RootLayout.jsx";
 import HomePage from "./pages/HomePage/HomePage.jsx";
 import CustomersPage from "./pages/CustomersPage/CustomersPage.jsx";
 import LoginPage from "./pages/LoginPage/LoginPage.jsx";
@@ -15,7 +15,7 @@ import AccountItemsPage from "./pages/AccountItemsPage/AccountItemsPage.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    element: <AppLayout />,
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <HomePage /> },
