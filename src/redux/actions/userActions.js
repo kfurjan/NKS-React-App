@@ -34,7 +34,7 @@ export const updateUserSuccess = (updatePayload) => ({
   payload: updatePayload,
 });
 
-export const login = (loginData) => {
+export const loginUser = (loginData) => {
   return async (dispatch) => {
     try {
       const data = await postRequest(LOGIN_URL, {
@@ -51,7 +51,7 @@ export const login = (loginData) => {
   };
 };
 
-export const register = (formData, callback) => {
+export const registerUser = (formData, callback) => {
   return async (dispatch) => {
     try {
       const userData = await postRequest(REGISTER_URL, {
@@ -71,7 +71,7 @@ export const register = (formData, callback) => {
           password: formData.password,
           image: reader.result,
         };
-        dispatch(login(loginData));
+        dispatch(loginUser(loginData));
         if (callback) callback();
       };
       reader.onerror = (error) => {

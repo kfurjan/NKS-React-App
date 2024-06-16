@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { register } from "../../redux/actions/userActions";
+import { registerUser } from "../../redux/actions/userActions";
 import "./RegisterPage.css";
 
 const RegisterPage = () => {
@@ -23,7 +23,7 @@ const RegisterPage = () => {
 
   const registerAndNavigate = (formData) => {
     return (dispatch) => {
-      dispatch(register(formData, () => navigate("/customers")));
+      dispatch(registerUser(formData, () => navigate("/customers")));
     };
   };
 

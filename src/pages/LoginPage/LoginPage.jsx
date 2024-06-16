@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../redux/actions/userActions";
+import { loginUser } from "../../redux/actions/userActions";
 import "./LoginPage.css";
 
 const LoginPage = () => {
@@ -23,7 +23,7 @@ const LoginPage = () => {
 
   const handleSubmit = function (event) {
     event.preventDefault();
-    dispatch(login({ email: userCredentials.email, password: userCredentials.password }));
+    dispatch(loginUser({ email: userCredentials.email, password: userCredentials.password }));
   };
 
   useEffect(function () {
