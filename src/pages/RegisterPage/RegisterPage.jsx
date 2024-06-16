@@ -1,71 +1,52 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../redux/actions/userActions";
+import { formReducer } from "../../redux/reducers/formReducer";
+import { SET_FILE, SET_FIELD } from "../../utils/constants";
 import "./RegisterPage.css";
 
+const initialState = {
+  name: "",
+  username: "",
+  password: "",
+  file: null,
+  validation: {},
+};
+
 const RegisterPage = () => {
-  const [registrationData, setRegistrationData] = useState({
-    name: "",
-    username: "",
-    password: "",
-    file: null,
-  });
-  const [validation, setValidation] = useState({});
+  const [state, dispatchForm] = useReducer(formReducer, initialState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setRegistrationData({ ...registrationData, [name]: value });
-    validateField(name, value);
+  var handleInputChange = function (event) {
+    var name = event.target.name;
+    var value = event.target.value;
+    dispatchForm({ type: SET_FIELD, field: name, value: value });
   };
 
-  const registerAndNavigate = (formData) => {
-    return (dispatch) => {
-      dispatch(registerUser(formData, () => navigate("/customers")));
-    };
+  var handleFileChange = function (event) {
+    dispatchForm({ type: SET_FILE, file: event.target.files[0] });
   };
 
-  const validateField = (name, value) => {
-    let message = "";
-    switch (name) {
-      case "name":
-        message = value ? "" : "Name is not allowed to be empty";
-        break;
-      case "username":
-        message = /^\S+@\S+\.\S+$/.test(value)
-          ? ""
-          : "Username must be a valid email";
-        break;
-      case "password":
-        message =
-          value.length >= 3
-            ? ""
-            : "Password length must be at least 3 characters long";
-        break;
-      default:
-        break;
-    }
-    setValidation({ ...validation, [name]: message });
-  };
-
-  const handleFileChange = (event) => {
-    setRegistrationData({ ...registrationData, file: event.target.files[0] });
-  };
-
-  const handleSubmit = (event) => {
+  var handleSubmit = function (event) {
     event.preventDefault();
-    dispatch(registerAndNavigate(registrationData));
+    dispatch(
+      registerUser(state, function () {
+        navigate("/customers");
+      })
+    );
   };
 
-  const isFormValid = () => {
+  var isFormValid = function () {
     return (
-      registrationData.name &&
-      registrationData.username &&
-      registrationData.password &&
-      registrationData.file &&
-      Object.values(validation).every((message) => message === "")
+      state.name &&
+      state.username &&
+      state.password &&
+      state.file &&
+      Object.values(state.validation).every(function (message) {
+        return message === "";
+      })
     );
   };
 
@@ -79,12 +60,12 @@ const RegisterPage = () => {
           type="text"
           id="name"
           name="name"
-          value={registrationData.name}
+          value={state.name}
           onChange={handleInputChange}
           required
         />
-        {validation.name && (
-          <div className="validation-message">{validation.name}</div>
+        {state.validation.name && (
+          <div className="validation-message">{state.validation.name}</div>
         )}
 
         <label htmlFor="username">Username:</label>
@@ -92,12 +73,12 @@ const RegisterPage = () => {
           type="text"
           id="username"
           name="username"
-          value={registrationData.username}
+          value={state.username}
           onChange={handleInputChange}
           required
         />
-        {validation.username && (
-          <div className="validation-message">{validation.username}</div>
+        {state.validation.username && (
+          <div className="validation-message">{state.validation.username}</div>
         )}
 
         <label htmlFor="password">Password:</label>
@@ -105,12 +86,12 @@ const RegisterPage = () => {
           type="password"
           id="password"
           name="password"
-          value={registrationData.password}
+          value={state.password}
           onChange={handleInputChange}
           required
         />
-        {validation.password && (
-          <div className="validation-message">{validation.password}</div>
+        {state.validation.password && (
+          <div className="validation-message">{state.validation.password}</div>
         )}
 
         <div className="avatar-upload">
@@ -124,12 +105,12 @@ const RegisterPage = () => {
             onChange={handleFileChange}
             style={{ display: "none" }}
           />
-          {registrationData.file && (
+          {state.file && (
             <div className="preview">
               <img
-                src={URL.createObjectURL(registrationData.file)}
+                src={URL.createObjectURL(state.file)}
                 alt="Avatar preview"
-                onLoad={() => URL.revokeObjectURL(registrationData.file)}
+                onLoad={() => URL.revokeObjectURL(state.file)}
               />
             </div>
           )}

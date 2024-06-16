@@ -1,39 +1,42 @@
-import React, { useState, useEffect } from "react";
+import React, { useReducer, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../redux/actions/userActions";
+import { formReducer } from "../../redux/reducers/formReducer";
+import { SET_FIELD } from "../../utils/constants";
 import "./LoginPage.css";
 
-const LoginPage = () => {
-  const [userCredentials, setUserCredentials] = useState({
-    email: "",
-    password: "",
-  });
+const initialState = {
+  email: "",
+  password: "",
+};
 
+const LoginPage = () => {
+  const [state, dispatchForm] = useReducer(formReducer, initialState);
   const dispatch = useDispatch();
   const loginError = useSelector((state) => state.auth.error);
   const isUserLoggedIn = useSelector((state) => state.auth.isUserLoggedIn);
   const navigate = useNavigate();
 
-  const handleInputChange = function (event) {
+  var handleInputChange = function (event) {
     var name = event.target.name;
     var value = event.target.value;
-    setUserCredentials(Object.assign({}, userCredentials, { [name]: value }));
+    dispatchForm({ type: SET_FIELD, field: name, value: value });
   };
 
-  const handleSubmit = function (event) {
+  var handleSubmit = function (event) {
     event.preventDefault();
-    dispatch(loginUser({ email: userCredentials.email, password: userCredentials.password }));
+    dispatch(loginUser({ email: state.email, password: state.password }));
   };
 
-  useEffect(function () {
+  useEffect(() => {
     if (isUserLoggedIn) {
-      navigate('/customers');
+      navigate("/customers");
     }
   }, [isUserLoggedIn, navigate]);
 
-  useEffect(function () {
-    var titleElement = document.getElementById("login-title");
+  useEffect(() => {
+    const titleElement = document.getElementById("login-title");
     if (titleElement) {
       titleElement.innerHTML = "Please Login";
     }
@@ -49,7 +52,7 @@ const LoginPage = () => {
           id="email"
           name="email"
           placeholder="Enter your email"
-          value={userCredentials.email}
+          value={state.email}
           onChange={handleInputChange}
           required
         />
@@ -59,7 +62,7 @@ const LoginPage = () => {
           id="password"
           name="password"
           placeholder="Enter your password"
-          value={userCredentials.password}
+          value={state.password}
           onChange={handleInputChange}
           required
         />
