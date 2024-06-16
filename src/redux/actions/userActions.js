@@ -1,4 +1,4 @@
-import axios from "axios";
+import { postRequest } from "../../utils/api";
 import { BASE_URL } from "../../utils/constants";
 
 const LOGIN_URL = `${BASE_URL}/auth/login`;
@@ -35,62 +35,52 @@ export const updateUserSuccess = (updatePayload) => ({
 });
 
 export const login = (loginData) => {
-  return (dispatch) => {
-    axios
-      .post(LOGIN_URL, {
+  return async (dispatch) => {
+    try {
+      const data = await postRequest(LOGIN_URL, {
         email: loginData.email,
         password: loginData.password,
-      })
-      .then((response) => {
-        const { access_token } = response.data;
-        localStorage.setItem("token", access_token);
-        dispatch(loginSuccess(loginData));
-      })
-      .catch((error) => {
-        const errorMsg = error.response
-          ? error.response.data.message
-          : error.message;
-        console.error("Login failed:", error);
-        dispatch(loginFailure(errorMsg));
       });
+      const { access_token } = data;
+      localStorage.setItem("token", access_token);
+      dispatch(loginSuccess(loginData));
+    } catch (error) {
+      console.error("Login failed:", error);
+      dispatch(loginFailure(error.message));
+    }
   };
 };
 
 export const register = (formData, callback) => {
-  return (dispatch) => {
-    axios
-      .post(REGISTER_URL, {
+  return async (dispatch) => {
+    try {
+      const userData = await postRequest(REGISTER_URL, {
         name: formData.name,
         email: formData.username,
         password: formData.password,
-      })
-      .then((response) => {
-        const userData = response.data;
-        dispatch(registerSuccess(userData));
-        const reader = new FileReader();
-        reader.readAsDataURL(formData.file);
-        reader.onload = () => {
-          const loginData = {
-            id: userData.id,
-            name: formData.name,
-            email: formData.username,
-            password: formData.password,
-            image: reader.result,
-          };
-          dispatch(login(loginData));
-          if (callback) callback();
-        };
-        reader.onerror = (error) => {
-          console.error("Error converting file to base64 string:", error);
-        };
-      })
-      .catch((error) => {
-        const errorMsg = error.response
-          ? error.response.data.message
-          : error.message;
-        console.error("Registration failed:", errorMsg);
-        dispatch(loginFailure(errorMsg));
       });
+      dispatch(registerSuccess(userData));
+
+      const reader = new FileReader();
+      reader.readAsDataURL(formData.file);
+      reader.onload = () => {
+        const loginData = {
+          id: userData.id,
+          name: formData.name,
+          email: formData.username,
+          password: formData.password,
+          image: reader.result,
+        };
+        dispatch(login(loginData));
+        if (callback) callback();
+      };
+      reader.onerror = (error) => {
+        console.error("Error converting file to base64 string:", error);
+      };
+    } catch (error) {
+      console.error("Registration failed:", error.message);
+      dispatch(loginFailure(error.message));
+    }
   };
 };
 
