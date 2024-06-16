@@ -1,4 +1,3 @@
-
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -54,4 +53,18 @@
 
 .search-bar {
   margin-bottom: 20px;
+  border: 1px solid #388e3c;
+  border-radius: 5px;
+  padding: 10px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-bar:focus {
+  border-color: #2c6e2f;
+  box-shadow: 0 0 5px 2px rgba(56, 142, 60, 0.5);
+}
+
+.search-bar::placeholder {
+  color: #888;
 }
