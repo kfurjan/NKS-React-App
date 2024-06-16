@@ -15,7 +15,7 @@ const LoginPage = () => {
   const isUserLoggedIn = useSelector((state) => state.auth.isUserLoggedIn);
   const navigate = useNavigate();
 
-  const handleInputChange = function (event) { // using function declaration instead of arrow function
+  const handleInputChange = function (event) {
     var name = event.target.name;
     var value = event.target.value;
     setUserCredentials(Object.assign({}, userCredentials, { [name]: value }));
@@ -33,7 +33,6 @@ const LoginPage = () => {
   }, [isUserLoggedIn, navigate]);
 
   useEffect(function () {
-    // ES5 Vanilla JS DOM manipulation example
     var titleElement = document.getElementById("login-title");
     if (titleElement) {
       titleElement.innerHTML = "Please Login";

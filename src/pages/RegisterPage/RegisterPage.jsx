@@ -56,7 +56,6 @@ const RegisterPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(registrationData);
     dispatch(registerAndNavigate(registrationData));
   };
 
