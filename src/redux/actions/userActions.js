@@ -1,18 +1,15 @@
 import axios from "axios";
 import { BASE_URL } from "../../utils/constants";
 
-// Constants
 const LOGIN_URL = `${BASE_URL}/auth/login`;
 const REGISTER_URL = `${BASE_URL}/auth/register`;
 
-// Action Types
 export const LOGOUT = "LOGOUT";
 export const UPDATE_USER = "UPDATE_USER";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 
-// Action Creators
 export const loginSuccess = (userData) => ({
   type: LOGIN_SUCCESS,
   payload: userData,
