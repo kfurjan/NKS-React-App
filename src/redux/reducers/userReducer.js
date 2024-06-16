@@ -6,49 +6,61 @@ import {
   UPDATE_USER,
 } from "../actions/userActions";
 
-const initialState = {
+const defaultUserState = {
   isUserLoggedIn: false,
   user: null,
   error: null,
 };
 
-const userReducer = (state = initialState, action) => {
+const userReducer = (state = defaultUserState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
-      return {
-        ...state,
-        isUserLoggedIn: true,
-        user: {
-          ...state.user,
-          ...action.payload,
-        },
-        error: null,
-      };
+      return handleLoginOrRegisterSuccess(state, action);
+
     case UPDATE_USER:
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          ...action.payload,
-        },
-        error: null,
-      };
+      return handleUpdateUser(state, action);
+
     case LOGIN_FAILURE:
-      return {
-        ...state,
-        error: action.payload,
-      };
+      return handleLoginFailure(state, action);
+
     case LOGOUT:
-      return {
-        ...state,
-        isUserLoggedIn: false,
-        user: null,
-        error: null,
-      };
+      return handleLogout(state);
+
     default:
       return state;
   }
 };
+
+const handleLoginOrRegisterSuccess = (state, action) => ({
+  ...state,
+  isUserLoggedIn: true,
+  user: {
+    ...state.user,
+    ...action.payload,
+  },
+  error: null,
+});
+
+const handleUpdateUser = (state, action) => ({
+  ...state,
+  user: {
+    ...state.user,
+    ...action.payload,
+  },
+  error: null,
+});
+
+const handleLoginFailure = (state, action) => ({
+  ...state,
+  error: action.payload,
+});
+
+const handleLogout = (state) => ({
+  ...state,
+  isUserLoggedIn: false,
+  user: null,
+  error: null,
+});
 
 export default userReducer;
